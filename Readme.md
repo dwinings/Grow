@@ -10,20 +10,20 @@ git <command> <arguments>  is the basic form of all git commands.
 
 In order to obtain this repository for use, just run the clone command with the link to the repository, given in the box. Example:
 
-git clone ssh://git@github.com:wisp558/Grow.git
+`git clone ssh://git@github.com:wisp558/Grow.git`
 
 After doing this, you can code as normal for a bit. When you've made a change, you can then commit: 
 
-$ git add <changedFiles>
-$ git commit -m "Message"
+`$ git add <changedFiles>
+$ git commit -m "Message"`
 
 If you want to tag the commit as a release, use git tag:
 
-$ git tag v0.001
+`$ git tag v0.001`
 
 git tag will tag the last commit. Now that you're done editing the code,you can just go forward and push the commit back to github:
 
-$ git push origin master
+`$ git push origin master`
 
 This pushes your local branch (master)  to a source (origin). You can set origin with `$ git remote add <source> <link>`, but is set for you when you use git clone.
 
