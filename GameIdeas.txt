@@ -1,0 +1,8 @@
+Fire that destroys grass
+
+Enemies:
+- vicious plant that will attack you after you grow them, visually show - this with look like red dirt 
+
+Levels can have a possible exit, obtained by going to it once you reach a set growth %
+
+Blocks that are also affected by gravity 
