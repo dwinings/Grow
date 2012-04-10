@@ -5,8 +5,8 @@ from pygame import font
 class Button:
     button_width = 77
     button_height = 25
-    button_normal = pygame.image.load('button_normal.png')
-    button_hover = pygame.image.load('button_hover.png')
+    button_normal = pygame.image.load('res/button_normal.png')
+    button_hover = pygame.image.load('res/button_hover.png')
     font.init()
     basicFont = pygame.font.SysFont(None, 24, bold=False, italic=False)
 	
