@@ -223,13 +223,13 @@ class AutoSwitch(Block):
     def __init__(self, x, y, stype):
         Block.__init__(self)
         if stype == 0:
-            self.image = pygame.image.load('res/switchUp.png')
+            self.image = pygame.image.load('res/switchaUp.png')
         elif stype == 1:
-            self.image = pygame.image.load('res/switchRight.png')
+            self.image = pygame.image.load('res/switchaRight.png')
         elif stype == 2:
-            self.image = pygame.image.load('res/switchDown.png')
+            self.image = pygame.image.load('res/switchaDown.png')
         else:
-            self.image = pygame.image.load('res/switchLeft.png')
+            self.image = pygame.image.load('res/switchaLeft.png')
         self.rec = self.image.get_rect()
         self.rec = self.rec.move(x, y)
         self.collides = False
