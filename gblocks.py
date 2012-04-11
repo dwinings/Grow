@@ -14,6 +14,11 @@ ROCK = 9
 CHASER = 10
 VAPOR_CLOUD = 11
 ICE_CUBE = 12
+SWITCH_A_U = 13
+SWITCH_A_R = 14
+SWITCH_A_D = 15
+SWITCH_a_L = 16
+
 class Block(object):
     def __init__(self):
         object.__init__(self)
@@ -210,6 +215,36 @@ class IceCube(Block):
             level.b2.hud.drawInteract = True
             if g.control.f:
                 level.b2.state = gobjects.MODE_NORMAL
+    def draw(self, screen):
+        screen.blit(self.image, self.rec)
+    def onCollide(self, ball):
+        pass
+class AutoSwitch(Block):
+    def __init__(self, x, y, stype):
+        Block.__init__(self)
+        if stype == 0:
+            self.image = pygame.image.load('res/switchUp.png')
+        elif stype == 1:
+            self.image = pygame.image.load('res/switchRight.png')
+        elif stype == 2:
+            self.image = pygame.image.load('res/switchDown.png')
+        else:
+            self.image = pygame.image.load('res/switchLeft.png')
+        self.rec = self.image.get_rect()
+        self.rec = self.rec.move(x, y)
+        self.collides = False
+        self.stopsPMovement = False
+        self.stype = stype
+    def update(self, level, g, seconds):
+        if self.rec.colliderect(level.b2.rec):
+            if self.stype == 0:
+                level.gstate = glevel.GSTATE_UP
+                elif self.stype == 1:
+                    level.gstate = glevel.GSTATE_RIGHT
+                elif self.stype == 2:
+                    level.gstate = glevel.GSTATE_DOWN
+                else:
+                    level.gstate = glevel.GSTATE_LEFT
     def draw(self, screen):
         screen.blit(self.image, self.rec)
     def onCollide(self, ball):
