@@ -25,7 +25,7 @@ class Game:
 
                 self.currentLevel = 0;
                 self.levelcount = 4;
-                self.levelFiles = ['levels/level1.1.gmap','levels/level1.gmap','levels/level2.gmap','levels/level3.gmap']
+                self.levelFiles = ['levels/airm.gmap','levels/level1.gmap','levels/level2.gmap','levels/level3.gmap']
 
         def openMenuScreen(self):
                 return gscreens.MenuScreen(self.width, self.height)

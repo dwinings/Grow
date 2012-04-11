@@ -22,7 +22,8 @@ class Ball:
 
         self.growRec = pygame.Rect(0,0,30,30)
         
-        self.speed = 200;
+        self.speed = 200
+        self.speedAir = 100
         self.direcmax = 1.0
         self.direc = [0.0, 0.0]
         self.vel = [0.0, 0.0]
@@ -151,15 +152,15 @@ class Ball:
             if level.gstate == glevel.GSTATE_LEFT or level.gstate == glevel.GSTATE_RIGHT:
                 if game.control.up or game.control.down:
                     if game.control.up:
-                        if self.inAirx:
-                            self.direc[1] = -(self.direcmax/2)
-                        else:
-                            self.direc[1] = -self.direcmax
+                        #if self.inAirx:
+                        #    self.direc[1] = -(self.direcmax/2)
+                        #else:
+                        self.direc[1] = -self.direcmax
                     elif game.control.down:
-                        if self.inAirx:
-                            self.direc[1] = (self.direcmax/2)
-                        else:
-                            self.direc[1] = self.direcmax
+                        #if self.inAirx:
+                        #   self.direc[1] = (self.direcmax/2)
+                        #else:
+                        self.direc[1] = self.direcmax
                 else:
                     self.direc[1] = 0
             else:
@@ -167,15 +168,15 @@ class Ball:
             if level.gstate == glevel.GSTATE_UP or level.gstate == glevel.GSTATE_DOWN:
                 if game.control.left or game.control.right:
                     if game.control.left:
-                        if self.inAiry:
-                            self.direc[0] = -(self.direcmax/2)
-                        else:
-                            self.direc[0] = -self.direcmax
+                        #if self.inAiry:
+                        #    self.direc[0] = -(self.direcmax/2)
+                        #else:
+                        self.direc[0] = -self.direcmax
                     elif game.control.right:
-                        if self.inAiry:
-                            self.direc[0] = (self.direcmax/2)
-                        else:
-                            self.direc[0] = self.direcmax
+                        #if self.inAiry:
+                        #    self.direc[0] = (self.direcmax/2)
+                        #else:
+                        self.direc[0] = self.direcmax
                 else:
                     self.direc[0] = 0
             else:
@@ -196,11 +197,15 @@ class Ball:
             
     def updateVelocity(self,seconds):
         #if self.state == MODE_NORMAL:
-        #Update speed based on directions from input                
-        self.vel[0] = self.speed * self.direc[0] * seconds
-        self.vel[1] = self.speed * self.direc[1] * seconds
-
-                    
+        #Update speed based on directions from input
+        if not self.inAiry:
+            self.vel[0] = self.speed * self.direc[0] * seconds
+        else:
+            self.vel[0] = self.speedAir * self.direc[0] * seconds
+        if not self.inAirx:
+            self.vel[1] = self.speed * self.direc[1] * seconds
+        else:
+            self.vel[1] = self.speedAir * self.direc[1] * seconds
     def updateGravity(self,level, seconds):
         if level.gstate == glevel.GSTATE_DOWN or level.gstate == glevel.GSTATE_UP:
             if level.gstate == glevel.GSTATE_DOWN:
