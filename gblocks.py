@@ -17,7 +17,7 @@ ICE_CUBE = 12
 SWITCH_A_U = 13
 SWITCH_A_R = 14
 SWITCH_A_D = 15
-SWITCH_a_L = 16
+SWITCH_A_L = 16
 
 class Block(object):
     def __init__(self):
