@@ -138,6 +138,14 @@ class Level:
                         self.blocks[x][y] = gblocks.VaporCloud((10*x),(10* y))
                     elif btype == gblocks.ICE_CUBE:
                         self.blocks[x][y] = gblocks.IceCube((10*x),(10*y))
+                    elif btype == gblocks.SWITCH_A_U:
+                        self.blocks[x][y] = gblocks.AutoSwitch((10*x),(10* y),0)
+                    elif btype == gblocks.SWITCH_A_R:
+                        self.blocks[x][y] = gblocks.AutoSwitch((10*x),(10* y),1)
+                    elif btype == gblocks.SWITCH_A_D:
+                        self.blocks[x][y] = gblocks.AutoSwitch((10*x),(10* y),2)
+                    elif btype == gblocks.SWITCH_A_L:
+                        self.blocks[x][y] = gblocks.AutoSwitch((10*x),(10* y),3)
                 elif sp[0] == 'manuals':
                     self.manualSwitches = int(sp[1])
                 elif sp[0] == 'gdir':
