@@ -83,22 +83,23 @@ class GameScreen(gui.Screen):
             self.quitButton.update(g,seconds)
             if self.quitButton.isClicked():
                 g.quit = True
+            if g.control.p[0] and not g.control.p[1]:
+                self.paused = not self.paused
         else:
-            self.level.update(g, seconds)
-            
             #If player is no longer alive, prompt them to respawn
             if self.level.b2.alive == False:
                 self.respawnButton.update(g, seconds)
                 if self.respawnButton.isClicked():
                     self.level.respawn()
-                    
-            if self.level.completed:
+            elif self.level.completed:
                 self.currentCT += seconds
                 if self.currentCT >= self.completionT:
                     g.incrementLevel()
                     g.openGameScreen()
-        if g.control.p[0] and not g.control.p[1]:
-            self.paused = not self.paused
+            else:
+                self.level.update(g, seconds)
+                if g.control.p[0] and not g.control.p[1]:
+                    self.paused = not self.paused
     def draw(self, screen):
         screen.fill(gcolors.CORNFLOWER_BLUE)
         screen.blit(self.bg, self.bgrect)
