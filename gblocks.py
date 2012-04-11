@@ -239,12 +239,12 @@ class AutoSwitch(Block):
         if self.rec.colliderect(level.b2.rec):
             if self.stype == 0:
                 level.gstate = glevel.GSTATE_UP
-                elif self.stype == 1:
-                    level.gstate = glevel.GSTATE_RIGHT
-                elif self.stype == 2:
-                    level.gstate = glevel.GSTATE_DOWN
-                else:
-                    level.gstate = glevel.GSTATE_LEFT
+            elif self.stype == 1:
+                level.gstate = glevel.GSTATE_RIGHT
+            elif self.stype == 2:
+                level.gstate = glevel.GSTATE_DOWN
+            else:
+                level.gstate = glevel.GSTATE_LEFT
     def draw(self, screen):
         screen.blit(self.image, self.rec)
     def onCollide(self, ball):
