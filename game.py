@@ -1,5 +1,5 @@
 #Author: Jonathan Haslow-Hall
-import sys, pygame, glevel, gui, gscreens, ginput, time, gcolors
+import sys, os, re, pygame, glevel, gui, gscreens, ginput, time, gcolors
 from pygame import font
 
 class Game:
@@ -25,7 +25,19 @@ class Game:
 
                 self.currentLevel = 0;
                 self.levelcount = 4;
-                self.levelFiles = ['levels/level1.1.gmap','levels/level1.gmap','levels/level2.gmap','levels/level3.gmap']
+
+                # Os.walk() returns a generator; I don't want to do a potentially expensive recursive
+                # file enumeration, so by using next, I only deal with the first folder. By 
+                # iterating over os.walk, we could easily deal with recursive file location.
+                # os.walk.next() returns a list in the form [current_dir, sub_dirs, files].
+                # We obviously only want the last of these.
+                
+                self.levelFiles = []
+                for current_file in sorted(os.walk(os.path.join('.', 'levels')).next()[2]):
+                    m = re.search("""\.gmap\Z""", current_file)
+                    if m is not None:
+                        self.levelFiles.append(os.path.join('.', 'levels', current_file))
+                print self.levelFiles
 
         def openMenuScreen(self):
                 return gscreens.MenuScreen(self.width, self.height)
@@ -67,3 +79,5 @@ class Game:
 
                         if self.quit:
                                 return
+
+
