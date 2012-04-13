@@ -80,4 +80,6 @@ class Game:
                         if self.quit:
                                 return
 
-
+if __name__ == '__main__':
+    g = Game()
+    g.run()
