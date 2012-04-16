@@ -9,3 +9,6 @@ Blocks that are also affected by gravity
 
 Repulsor blocks
 - blocks that push you away 
+
+Vines 
+- ladders (if player is holding F) 
