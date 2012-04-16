@@ -6,3 +6,6 @@ Enemies:
 Levels can have a possible exit, obtained by going to it once you reach a set growth %
 
 Blocks that are also affected by gravity 
+
+Repulsor blocks
+- blocks that push you away 
