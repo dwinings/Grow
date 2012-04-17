@@ -146,6 +146,8 @@ class Level:
                         self.blocks[x][y] = gblocks.AutoSwitch((10*x),(10* y),2)
                     elif btype == gblocks.SWITCH_A_L:
                         self.blocks[x][y] = gblocks.AutoSwitch((10*x),(10* y),3)
+                    elif btype == gblocks.VINE:
+                        self.blocks[x][y] = gblocks.Vine((10*x),(10* y))
                 elif sp[0] == 'manuals':
                     self.manualSwitches = int(sp[1])
                 elif sp[0] == 'gdir':

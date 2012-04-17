@@ -18,6 +18,7 @@ SWITCH_A_U = 13
 SWITCH_A_R = 14
 SWITCH_A_D = 15
 SWITCH_A_L = 16
+VINE = 17
 
 class Block(object):
     def __init__(self):
@@ -245,6 +246,26 @@ class AutoSwitch(Block):
                 level.gstate = glevel.GSTATE_DOWN
             else:
                 level.gstate = glevel.GSTATE_LEFT
+    def draw(self, screen):
+        screen.blit(self.image, self.rec)
+    def onCollide(self, ball):
+        pass
+class Vine(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.image = pygame.image.load('res/vine.png').convert()
+        self.colorkey = self.image.get_at((0,0))
+        self.image.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        
+        self.rec = self.image.get_rect()
+        self.rec = self.rec.move(x,y)
+        self.collides = False
+        self.stopsPMovement = False
+    def update(self, level, g, seconds):
+        if level.b2.state == gobjects.MODE_NORMAL and self.rec.colliderect(level.b2.rec):
+            level.b2.hud.drawInteract = True
+            if g.control.f:
+                level.b2.state = gobjects.MODE_ON_VINE
     def draw(self, screen):
         screen.blit(self.image, self.rec)
     def onCollide(self, ball):

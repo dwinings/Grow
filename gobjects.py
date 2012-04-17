@@ -6,6 +6,7 @@ basicFont = pygame.font.SysFont(None, 24, bold=False, italic=False)
 
 MODE_NORMAL = 0
 MODE_VAPOR = 1
+MODE_ON_VINE = 2
 
 class Ball:
     def __init__(self, x, y, width, height):
@@ -80,6 +81,7 @@ class Ball:
                 self.vel[1] = 0
                 self.t[1] = 0.0
 
+            #Reset states 
             self.touchingBlock = False
             self.gSwitched = False
             
@@ -88,7 +90,7 @@ class Ball:
                     if level.blocks[i][j] != None:
                         if level.blocks[i][j].collides:
                             if self.newLocX.colliderect(level.blocks[i][j].rec):
-                                if self.state == MODE_NORMAL and level.blocks[i][j].stopsPMovement:
+                                if (self.state == MODE_NORMAL or self.state == MODE_ON_VINE) and level.blocks[i][j].stopsPMovement:
                                     self.collpassx = False
                                     self.vel[0] = 0
                                     self.t[0] = 0.0
@@ -102,7 +104,7 @@ class Ball:
                                 self.touchingBlock = True
                                 level.blocks[i][j].onCollide(self)
                             if self.newLocY.colliderect(level.blocks[i][j].rec):
-                                if self.state == MODE_NORMAL and level.blocks[i][j].stopsPMovement:
+                                if (self.state == MODE_NORMAL or self.state == MODE_ON_VINE) and level.blocks[i][j].stopsPMovement:
                                     self.collpassy = False
                                     self.vel[1] = 0
                                     self.t[1] = 0.0
@@ -118,6 +120,11 @@ class Ball:
             #if collision checks pass, set location to new locations respectively
             self.inAirx = False
             self.inAiry = False
+
+            #Set airT to zero if player is on vine, because
+            #otherwise the player will move slowly on the vine
+            if self.state == MODE_ON_VINE:
+                self.airT = 0.0
             
             if self.collpassx:
                 self.rec.left = self.newLocX.left
@@ -140,8 +147,14 @@ class Ball:
 
             self.growRec.x = self.rec.x - 5
             self.growRec.y = self.rec.y - 5
+
+            # If player state is on vine, reset it, because if they
+            # are still touching a vine, the state will be switched
+            # back anyway.
+            if self.state == MODE_ON_VINE:
+                self.state = MODE_NORMAL
     def draw(self, screen):
-        if self.state == MODE_NORMAL:
+        if self.state == MODE_NORMAL or self.state == MODE_ON_VINE:
             screen.blit(self.image, self.rec)
         elif self.state == MODE_VAPOR:
             screen.blit(self.vimage, self.rec)
@@ -152,14 +165,8 @@ class Ball:
             if level.gstate == glevel.GSTATE_LEFT or level.gstate == glevel.GSTATE_RIGHT:
                 if game.control.up or game.control.down:
                     if game.control.up:
-                        #if self.inAirx:
-                        #    self.direc[1] = -(self.direcmax/2)
-                        #else:
                         self.direc[1] = -self.direcmax
                     elif game.control.down:
-                        #if self.inAirx:
-                        #   self.direc[1] = (self.direcmax/2)
-                        #else:
                         self.direc[1] = self.direcmax
                 else:
                     self.direc[1] = 0
@@ -168,20 +175,14 @@ class Ball:
             if level.gstate == glevel.GSTATE_UP or level.gstate == glevel.GSTATE_DOWN:
                 if game.control.left or game.control.right:
                     if game.control.left:
-                        #if self.inAiry:
-                        #    self.direc[0] = -(self.direcmax/2)
-                        #else:
                         self.direc[0] = -self.direcmax
                     elif game.control.right:
-                        #if self.inAiry:
-                        #    self.direc[0] = (self.direcmax/2)
-                        #else:
                         self.direc[0] = self.direcmax
                 else:
                     self.direc[0] = 0
             else:
                 self.direc[0] = 0
-        elif self.state == MODE_VAPOR:
+        elif self.state == MODE_VAPOR or self.state == MODE_ON_VINE:
             if game.control.up:
                 self.direc[1] = -self.direcmax
             elif game.control.down:
@@ -196,7 +197,6 @@ class Ball:
                 self.direc[0] = 0
             
     def updateVelocity(self,seconds):
-        #if self.state == MODE_NORMAL:
         #Update speed based on directions from input
         if not self.inAiry:
             self.vel[0] = self.speed * self.direc[0] * seconds
@@ -232,6 +232,11 @@ class Ball:
         self.score += value
         if self.score < 0:
             self.score = 0
+            
+DRAW_LR = 0
+DRAW_UD = 1
+DRAW_BOTH = 2
+
 class Hud:
     def __init__(self, width, height):
         self.score = 0
@@ -244,7 +249,8 @@ class Hud:
         self.leftrightI.set_colorkey(self.colorkey, pygame.RLEACCEL)
 
         self.arrowLoc = (20, height - 65)
-        self.drawLR = True
+
+        self.drawType = DRAW_LR
 
         self.interactI = pygame.image.load('res/interact.png')
         self.interactLoc = (105, height - 50)
@@ -256,10 +262,14 @@ class Hud:
     def update(self, ball,level):
         self.drawInteract = False
         self.score = ball.score
-        if level.gstate == glevel.GSTATE_DOWN or level.gstate == glevel.GSTATE_UP:
-            self.drawLR = True
+
+        if ball.state == MODE_NORMAL:
+            if level.gstate == glevel.GSTATE_DOWN or level.gstate == glevel.GSTATE_UP:
+                self.drawType = DRAW_LR
+            else:
+                self.drawType = DRAW_UD
         else:
-            self.drawLR = False
+            self.drawType = DRAW_BOTH
         self.manuals = level.manualSwitches
     def draw(self, screen):
         """self.textI = basicFont.render('Score: ' + str(self.score),True, gcolors.WHITE)
@@ -269,15 +279,16 @@ class Hud:
         self.textI = basicFont.render('Manuals Remaining: '+ str(self.manuals),True, gcolors.WHITE)
         screen.blit(self.textI, (250,0))"""
 
-        if self.drawLR:
+
+        self.updownI.set_alpha(200)
+        self.leftrightI.set_alpha(200)
+        
+        if self.drawType == DRAW_LR:
             self.updownI.set_alpha(50)
-        else:
-            self.updownI.set_alpha(200)
-        screen.blit(self.updownI, self.arrowLoc)
-        if self.drawLR == False:
+        if self.drawType == DRAW_UD:
             self.leftrightI.set_alpha(50)
-        else:
-            self.leftrightI.set_alpha(200)
+            
+        screen.blit(self.updownI, self.arrowLoc)
         screen.blit(self.leftrightI, self.arrowLoc)
 
         if self.drawInteract:
