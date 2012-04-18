@@ -3,9 +3,13 @@ import gui, glevel, gcolors, pygame
 
 class MenuScreen(gui.Screen):
     def __init__(self, width, height):
-        self.playButton = gui.Button((width/2)-50,(height*.6) + 50, 'Play')
-        self.guideButton = gui.Button((width/2)-50,(height*.6) + 100,'Guide')
-        self.guideBackButton = gui.Button(380,450,'Back');
+        self.playButton = gui.Button((width/2)-50,(height*.6) + 50, 'Play',0)
+        self.guideButton = gui.Button((width/2)-50,(height*.6) + 100,'Guide',1)
+        self.guideBackButton = gui.Button(380,450,'Back',2);
+
+        self.playButton.setClickedMethod(self.onClick)
+        self.guideButton.setClickedMethod(self.onClick)
+        self.guideBackButton.setClickedMethod(self.onClick)
 
         self.showGuide = False;
         self.tutImage = pygame.image.load('res/tut.png').convert()
@@ -17,14 +21,8 @@ class MenuScreen(gui.Screen):
         if self.showGuide == False:
             self.playButton.update(g, seconds)
             self.guideButton.update(g,seconds)
-            if self.playButton.clicked:
-                g.openGameScreen()
-            if self.guideButton.isClicked():
-                self.showGuide = True;
         else:
             self.guideBackButton.update(g,seconds)
-            if self.guideBackButton.isClicked():
-                self.showGuide = False;
     def draw(self, screen):
         screen.blit(self.menub, (0,0))
         if self.showGuide:
@@ -33,9 +31,16 @@ class MenuScreen(gui.Screen):
         else:
             self.playButton.draw(screen)
             self.guideButton.draw(screen)
+    def onClick(self, button, g):
+        if button.my_id == 0:
+            g.openGameScreen()
+        elif button.my_id == 1:
+            self.showGuide = True
+        elif button.my_id == 2:
+            self.showGuide = False
 class CreditsScreen(gui.Screen):
     def __init__(self, width, height):
-        self.quit = gui.Button(380,450,'Quit');
+        self.quit = gui.Button(380,450,'Quit',0);
         self.aboutImage = pygame.image.load('res/credit.png').convert()
     def update(self, g, seconds):
         self.quit.update(g, seconds)
@@ -53,14 +58,18 @@ class GameScreen(gui.Screen):
         self.levelFile = levelFile
 
         #Pause menu buttons
-        self.resumeButton = gui.Button((width/2)-50,(height*.28) + 50, 'Resume')
-        self.restartButton = gui.Button((width/2)-50,(height*.28) + 100,'Restart')
-        self.quitButton = gui.Button((width/2)-50,(height*.28) + 150,'Quit')
+        self.resumeButton = gui.Button((width/2)-50,(height*.28) + 50, 'Resume',0)
+        self.restartButton = gui.Button((width/2)-50,(height*.28) + 100,'Restart',1)
+        self.quitButton = gui.Button((width/2)-50,(height*.28) + 150,'Quit',2)
 
+        self.resumeButton.setClickedMethod(self.onClick)
+        self.restartButton.setClickedMethod(self.onClick)
+        self.quitButton.setClickedMethod(self.onClick)
+        
         #Gameover Variables
         self.gameoverI = pygame.image.load('res/gameover.png')
         self.gameoverRec = self.gameoverI.get_rect()
-        self.respawnButton = gui.Button((width/2)-50,height*.4,'Respawn')
+        self.respawnButton = gui.Button((width/2)-50,height*.4,'Respawn',3)
 
         #Background
         self.bg = pygame.image.load('res/bg.png').convert()
@@ -75,14 +84,8 @@ class GameScreen(gui.Screen):
         if self.paused:
             #Update Pause menu
             self.resumeButton.update(g,seconds)
-            if self.resumeButton.isClicked():
-                self.paused = False
             self.restartButton.update(g,seconds)
-            if self.restartButton.isClicked():
-                g.openGameScreen()
             self.quitButton.update(g,seconds)
-            if self.quitButton.isClicked():
-                g.quit = True
             if g.control.p[0] and not g.control.p[1]:
                 self.paused = not self.paused
         else:
@@ -114,4 +117,11 @@ class GameScreen(gui.Screen):
             self.respawnButton.draw(screen)
     def restartLevel(self, width, height):
         self.level = glevel.Level(width, height, self.levelFile)
+    def onClick(self, button, g):
+        if button.my_id == 0:
+            self.paused = False
+        elif button.my_id == 1:
+            g.openGameScreen()
+        elif button.my_id == 2:
+            g.quit = True
             
