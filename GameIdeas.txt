@@ -1,20 +1,21 @@
-Fire that destroys grass
-Building on this, if fire kills grass, then the player can't grow on 100% of the tiles.  As such,
-what if we simply have a % completion for moving to the next level, and one (or more) exit tiles.
-On top of this system, we could have a rating system (1-3) stars.  Getting the minimum %, say, 65%, allows
-you to exit the level through an exit, but only earns you 1 star.  85% - 2 stars, 95%>, 3 stars.
-The player's score is saved, and the player can choose to play previous levels for a higher score.
-Could have aesthetic unlockables based on number of stars earned. (10 stars to buy angry-face Grow).
-In game shop?
+Level titles 
 
-Grow could consume different materials to change his state.  Absorbing some acid could allow it to burn its way through more fragile walls,
-while absorbing gelatin would allow Grow to bounce.
+Lives 
+- 3 per level 
 
+Fullscreen
 
-
+Color dye 
+- this could be for enemies being passive depending on what color you are. 
+- Acid State: Absorbing some acid could allow it to burn its way through more fragile walls,
+- Gelatin State: absorbing gelatin would allow Grow to bounce.
 
 Enemies:
-- vicious plant that will attack you after you grow them, visually show - this with look like red dirt 
+- vicious plant that will attack you, visually show - this with look like red dirt 
+-- linear attacks 
+-- player can move threw them
+-- shoot at player 
+-- linear shooting 
 
 Levels can have a possible exit, obtained by going to it once you reach a set growth %
 
@@ -23,5 +24,19 @@ Blocks that are also affected by gravity
 Repulsor blocks
 - blocks that push you away 
 
-Vines 
-- ladders (if player is holding F) 
+Objects that can effect the world on time based 
+
+Dripping lave/fire
+- Drips on a time
+- can kill you 
+
+Make block files global
+
+ Fire that destroys grass
+Building on this, if fire kills grass, then the player can't grow on 100% of the tiles.  As such,
+what if we simply have a % completion for moving to the next level, and one (or more) exit tiles.
+On top of this system, we could have a rating system (1-3) stars.  Getting the minimum %, say, 65%, allows
+you to exit the level through an exit, but only earns you 1 star.  85% - 2 stars, 95%>, 3 stars.
+The player's score is saved, and the player can choose to play previous levels for a higher score.
+Could have aesthetic unlockables based on number of stars earned. (10 stars to buy angry-face Grow).
+In game shop?
