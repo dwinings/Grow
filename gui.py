@@ -15,11 +15,15 @@ class Button:
         self.clicked = False
         self.text = da_text
         self.rec = pygame.Rect(x, y, Button.button_width, Button.button_height)
+        self.loc = (x,y)
 
         self.text_s =  Button.basicFont.render(self.text, True, gcolors.WHITE)
         self.srec = self.text_s.get_rect()
-        self.srec.left = self.srec.left + self.rec.left + (self.rec.width/2) - (self.srec.width / 2)
-        self.srec.top = self.srec.top + self.rec.top + (self.rec.height/2) - (self.srec.height / 2)
+        self.sx = self.srec.left + self.rec.left + (self.rec.width/2) - (self.srec.width / 2)
+        self.sy = self.srec.top + self.rec.top + (self.rec.height/2) - (self.srec.height / 2)
+        self.sloc = (self.sx, self.sy)
+        self.srec.left = self.sx
+        self.srec.top = self.sy
 
         self.clickMethod = None
         self.my_id = button_id
@@ -40,6 +44,18 @@ class Button:
             screen.blit(Button.button_normal, self.rec)
         
         screen.blit(self.text_s, self.srec)
+    def draw2(self, screen, offset):
+        if self.hovered:
+            screen.blit(Button.button_hover, ((self.loc[0] + offset[0]),(self.loc[1] + offset[1])))
+        else:
+            screen.blit(Button.button_normal, ((self.loc[0] + offset[0]),(self.loc[1] + offset[1])))
+        
+        screen.blit(self.text_s, ((self.sloc[0] + offset[0]),(self.sloc[1] + offset[1])))
+    def pressed(self, g):
+        if self.clickMethod != None:
+            self.clickMethod(self,g)
+        else:
+            self.clicked = True
     def isClicked(self):
         if self.clicked:
             self.clicked = False
@@ -50,10 +66,32 @@ class ButtonGroup:
     def __init__(self, locx, locy, spacingy):
         self.loc = (locx, locy)
         self.spacing_y = spacingy
-    def update(self, g):
-        pass
-    def draw(screen):
-        pass
+        self.buttons = []
+        self.selected_index = 0
+        self.selector = pygame.image.load('res/selector.png')
+        
+    def update(self, g, seconds):
+        if g.control.space:
+            self.buttons[self.selected_index].pressed(g)
+
+        if g.control.down and not g.control.old_down:
+            self.selected_index += 1
+            if self.selected_index >= len(self.buttons):
+                self.selected_index = 0
+        if g.control.up and not g.control.old_up:
+            self.selected_index -= 1
+            if self.selected_index < 0:
+                self.selected_index = len(self.buttons) - 1
+                
+        for i in range(len(self.buttons)):
+            self.buttons[i].update(g, seconds)
+    def draw(self, screen):
+        for i in range(len(self.buttons)):
+            self.buttons[i].draw2(screen, (self.loc[0], self.loc[1] + (self.spacing_y * i)))
+        screen.blit(self.selector, (self.loc[0] - 50, self.loc[1] + (self.spacing_y * self.selected_index)))
+    def add(self, button):
+        self.buttons.append(button)
+        self.buttons[len(self.buttons)-1].rec = self.buttons[len(self.buttons)-1].rec.move(self.loc[0], self.loc[1] + (self.spacing_y * (len(self.buttons)-1)))
 class Screen:
     def __init__(self):
         pass

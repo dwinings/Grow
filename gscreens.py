@@ -3,13 +3,17 @@ import gui, glevel, gcolors, pygame
 
 class MenuScreen(gui.Screen):
     def __init__(self, width, height):
-        self.playButton = gui.Button((width/2)-50,(height*.6) + 50, 'Play',0)
-        self.guideButton = gui.Button((width/2)-50,(height*.6) + 100,'Guide',1)
+        self.playButton = gui.Button(0,0, 'Play',0)
+        self.guideButton = gui.Button(0,0,'Guide',1)
         self.guideBackButton = gui.Button(380,450,'Back',2);
-
+        
         self.playButton.setClickedMethod(self.onClick)
         self.guideButton.setClickedMethod(self.onClick)
         self.guideBackButton.setClickedMethod(self.onClick)
+        
+        self.bgroup = gui.ButtonGroup((width/2)-50,(height*.6),70)
+        self.bgroup.add(self.playButton)
+        self.bgroup.add(self.guideButton)
 
         self.showGuide = False;
         self.tutImage = pygame.image.load('res/tut.png').convert()
@@ -17,10 +21,8 @@ class MenuScreen(gui.Screen):
         self.menub = pygame.image.load('res/titleb.png').convert()
         
     def update(self, g, seconds):
-	#g.openGameScreen()
         if self.showGuide == False:
-            self.playButton.update(g, seconds)
-            self.guideButton.update(g,seconds)
+            self.bgroup.update(g, seconds)
         else:
             self.guideBackButton.update(g,seconds)
     def draw(self, screen):
@@ -29,8 +31,7 @@ class MenuScreen(gui.Screen):
             screen.blit(self.tutImage, (0,0))
             self.guideBackButton.draw(screen)
         else:
-            self.playButton.draw(screen)
-            self.guideButton.draw(screen)
+            self.bgroup.draw(screen)
     def onClick(self, button, g):
         if button.my_id == 0:
             g.openGameScreen()

@@ -16,6 +16,9 @@ class Controls:
         self.p = [False, False]
         self.mloc = [0, 0]
         self.mClicked = False
+        self.space = False
+        self.old_up = False
+        self.old_down = False
     def updateControls(self):
         bools = key.get_pressed()
         self.up = bools[pygame.K_UP]
@@ -31,7 +34,10 @@ class Controls:
         m = mouse.get_pressed()
         self.mClicked = m[0]
         self.mloc = mouse.get_pos()
+        self.space = bools[pygame.K_SPACE]
     def updateLast(self):
         self.p[1] = self.p[0]
+        self.old_up = self.up
+        self.old_down = self.down
         
                         
