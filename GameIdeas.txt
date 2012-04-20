@@ -1,5 +1,5 @@
 Level titles 
-Dying resets the level
+
 Blocks that are also affected by gravity 
  - Add a boolean to prevent blocks changing player gravity
 
