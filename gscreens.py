@@ -59,13 +59,18 @@ class GameScreen(gui.Screen):
         self.levelFile = levelFile
 
         #Pause menu buttons
-        self.resumeButton = gui.Button((width/2)-50,(height*.28) + 50, 'Resume',0)
-        self.restartButton = gui.Button((width/2)-50,(height*.28) + 100,'Restart',1)
-        self.quitButton = gui.Button((width/2)-50,(height*.28) + 150,'Quit',2)
+        self.resumeButton = gui.Button(0,0, 'Resume',0)
+        self.restartButton = gui.Button(0,0,'Restart',1)
+        self.quitButton = gui.Button(0,0,'Quit',2)
 
         self.resumeButton.setClickedMethod(self.onClick)
         self.restartButton.setClickedMethod(self.onClick)
         self.quitButton.setClickedMethod(self.onClick)
+
+        self.bgroup = gui.ButtonGroup((width/2)-50,(height*.28) + 50,50)
+        self.bgroup.add(self.resumeButton)
+        self.bgroup.add(self.restartButton)
+        self.bgroup.add(self.quitButton)
         
         #Gameover Variables
         self.gameoverI = pygame.image.load('res/gameover.png')
@@ -84,9 +89,7 @@ class GameScreen(gui.Screen):
     def update(self, g, seconds):
         if self.paused:
             #Update Pause menu
-            self.resumeButton.update(g,seconds)
-            self.restartButton.update(g,seconds)
-            self.quitButton.update(g,seconds)
+            self.bgroup.update(g,seconds)
             if g.control.p[0] and not g.control.p[1]:
                 self.paused = not self.paused
         else:
@@ -111,9 +114,7 @@ class GameScreen(gui.Screen):
 	self.level.draw(screen)
 	if self.paused:
             screen.blit(self.pauseBackground, self.pauseBRect)
-            self.resumeButton.draw(screen)
-            self.restartButton.draw(screen)
-            self.quitButton.draw(screen)
+            self.bgroup.draw(screen)
         if self.level.b2.alive == False:
             screen.blit(self.gameoverI, self.gameoverRec)
             self.respawnButton.draw(screen)
