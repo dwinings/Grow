@@ -37,7 +37,6 @@ class Game:
                     m = re.search("""\.gmap\Z""", current_file)
                     if m is not None:
                         self.levelFiles.append(os.path.join('.', 'levels', current_file))
-                print self.levelFiles
 
         def openMenuScreen(self):
                 return gscreens.MenuScreen(self.width, self.height)

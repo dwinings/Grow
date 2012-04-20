@@ -97,6 +97,7 @@ class GameScreen(gui.Screen):
                     self.level.respawn()
             elif self.level.completed:
                 self.currentCT += seconds
+                self.level.update(g, seconds)
                 if self.currentCT >= self.completionT:
                     g.incrementLevel()
                     g.openGameScreen()
