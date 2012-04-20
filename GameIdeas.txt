@@ -13,20 +13,13 @@ These are good, but they need tradeoffs
 - Acid State: Absorbing some acid could allow it to burn its way through more fragile walls,
 - Gelatin State: absorbing gelatin would allow Grow to bounce.
 
-
 Levels can have a possible exit, obtained by going to it once you reach a set growth %
-
-
 
 Repulsor blocks
 - Maybe, but not necessarily a good fit for the game
 - blocks that push you away 
 
 Objects that can affect the world on time based 
-
-
-
-Make block files global
 
  Fire that destroys grass
 Building on this, if fire kills grass, then the player can't grow on 100% of the tiles.  As such,
