@@ -38,6 +38,9 @@ class Level:
         self.leavesLoc = [width - 70,height - 30]
         self.leavesTextOffset = [27,0]
 
+        #Block images
+        self.bimages = gblocks.BlockImages()
+        
         #Block array for level
         self.blocks = [[None for col in range(50)] for row in range(50)]
         #Load level data 
@@ -81,7 +84,7 @@ class Level:
 	for i in range(50):
             for j in range(50):
                 if self.blocks[i][j] != None:
-                    self.blocks[i][j].draw(screen)
+                    self.blocks[i][j].draw(screen, self.bimages)
 
         #Hud draw layer
         self.b2.drawHud(screen)
