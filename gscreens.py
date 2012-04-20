@@ -75,7 +75,7 @@ class GameScreen(gui.Screen):
         #Gameover Variables
         self.gameoverI = pygame.image.load('res/gameover.png')
         self.gameoverRec = self.gameoverI.get_rect()
-        self.respawnButton = gui.Button((width/2)-50,height*.4,'Respawn',3)
+        self.respawnButton = gui.Button((width/2)-50,height*.4,'Retry',3)
 
         #Background
         self.bg = pygame.image.load('res/bg.png').convert()
@@ -97,7 +97,7 @@ class GameScreen(gui.Screen):
             if self.level.b2.alive == False:
                 self.respawnButton.update(g, seconds)
                 if self.respawnButton.isClicked():
-                    self.level.respawn()
+                    g.openGameScreen()
             elif self.level.completed:
                 self.currentCT += seconds
                 self.level.update(g, seconds)
