@@ -87,6 +87,9 @@ class GameScreen(gui.Screen):
 
         self.level = glevel.Level(width, height, levelFile)
     def update(self, g, seconds):
+        if g.control.one[0] and not g.control.one[1]:
+            g.incrementLevel()
+            g.openGameScreen()
         if self.paused:
             #Update Pause menu
             self.bgroup.update(g,seconds)

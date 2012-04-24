@@ -42,6 +42,8 @@ class Game:
                 return gscreens.MenuScreen(self.width, self.height)
         def openGameScreen(self):
                 if (self.currentLevel < self.levelcount):
+                        self.str = 'Grow!' + self.levelFiles[self.currentLevel]
+                        pygame.display.set_caption(self.str)
                         self.currentScreen = gscreens.GameScreen(self.width, self.height, self.levelFiles[self.currentLevel])
                 else:
                         self.currentScreen = gscreens.CreditsScreen(self.width, self.height)

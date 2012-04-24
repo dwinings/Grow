@@ -137,25 +137,25 @@ class Switch(Block):
         self.rec = self.rec.move(x, y)
         self.collides = False
         self.stopsPMovement = False
-        self.stype = stype
+        self.type = stype
     def update(self, level, g, seconds):
         if self.rec.colliderect(level.b2.rec):
             level.b2.hud.drawInteract = True
             if g.control.f:
-                if self.stype == 0:
+                if self.type == 0:
                     level.gstate = glevel.GSTATE_UP
-                elif self.stype == 1:
+                elif self.type == 1:
                     level.gstate = glevel.GSTATE_RIGHT
-                elif self.stype == 2:
+                elif self.type == 2:
                     level.gstate = glevel.GSTATE_DOWN
                 else:
                     level.gstate = glevel.GSTATE_LEFT
     def draw(self, screen, bimages):
-        if stype == 0:
+        if self.type == 0:
             screen.blit(bimages.switch1, self.rec)
-        elif stype == 1:
+        elif self.type == 1:
             screen.blit(bimages.switch2, self.rec)
-        elif stype == 2:
+        elif self.type == 2:
             screen.blit(bimages.switch3, self.rec)
         else:
             screen.blit(bimages.switch4, self.rec)
@@ -260,11 +260,11 @@ class AutoSwitch(Block):
             else:
                 level.gstate = glevel.GSTATE_LEFT
     def draw(self, screen, bimages):
-        if stype == 0:
+        if self.stype == 0:
             screen.blit(bimages.aswitch1, self.rec)
-        elif stype == 1:
+        elif self.stype == 1:
             screen.blit(bimages.aswitch2, self.rec)
-        elif stype == 2:
+        elif self.stype == 2:
             screen.blit(bimages.aswitch3, self.rec)
         else:
             screen.blit(bimages.aswitch4, self.rec)
