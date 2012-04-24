@@ -1,4 +1,7 @@
+#!/usr/bin/env python2
+
 #Author: Jonathan Haslow-Hall
+
 import sys, os, re, pygame, glevel, gui, gscreens, ginput, time, gcolors, gblocks
 from pygame import font
 
@@ -24,7 +27,6 @@ class Game:
                 self.currentScreen = gscreens.MenuScreen(self.width, self.height)
 
                 self.currentLevel = 0;
-                self.levelcount = 4;
                 
                 # Os.walk() returns a generator; I don't want to do a potentially expensive recursive
                 # file enumeration, so by using next, I only deal with the first folder. By 
@@ -37,6 +39,7 @@ class Game:
                     m = re.search("""\.gmap\Z""", current_file)
                     if m is not None:
                         self.levelFiles.append(os.path.join('.', 'levels', current_file))
+                self.levelcount = len(self.levelFiles)
 
         def openMenuScreen(self):
                 return gscreens.MenuScreen(self.width, self.height)
