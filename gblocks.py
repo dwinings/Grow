@@ -19,6 +19,8 @@ SWITCH_A_R = 14
 SWITCH_A_D = 15
 SWITCH_A_L = 16
 VINE = 17
+CBJ = 18
+CBD = 19
 
 class BlockImages():
     def __init__(self):
@@ -52,6 +54,10 @@ class BlockImages():
         self.vine = pygame.image.load('res/vine.png').convert()
         self.colorkey = self.vine.get_at((0,0))
         self.vine.set_colorkey(self.colorkey, pygame.RLEACCEL)
+
+        self.qbox = pygame.image.load('res/qbox.png').convert()
+        self.cbj = pygame.image.load('res/cbj.png')
+        self.cbd = pygame.image.load('res/cbd.png')
 class Block(object):
     def __init__(self):
         object.__init__(self)
@@ -285,5 +291,41 @@ class Vine(Block):
                 level.b2.state = gobjects.MODE_ON_VINE
     def draw(self, screen, bimages):
         screen.blit(bimages.vine, self.rec)
+    def onCollide(self, ball):
+        pass
+class CB_J(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = self.rec.move(x,y)
+        self.hovered = False
+        self.loc = (x - 90, y - 50)
+    def update(self, level, g, seconds):
+        if self.rec.collidepoint(g.control.mloc):
+            self.hovered = True
+        else:
+            self.hovered = False
+    def draw(self, screen, bimages):
+        screen.blit(bimages.qbox, self.rec)
+        if self.hovered:
+            screen.blit(bimages.cbj, self.loc)
+    def onCollide(self, ball):
+        pass
+class CB_D(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = self.rec.move(x,y)
+        self.hovered = False
+        self.loc = (x - 90, y - 50)
+    def update(self, level, g, seconds):
+        if self.rec.collidepoint(g.control.mloc):
+            self.hovered = True
+        else:
+            self.hovered = False
+    def draw(self, screen, bimages):
+        screen.blit(bimages.qbox, self.rec)
+        if self.hovered:
+            screen.blit(bimages.cbd, self.loc)
     def onCollide(self, ball):
         pass

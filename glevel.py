@@ -151,6 +151,10 @@ class Level:
                         self.blocks[x][y] = gblocks.AutoSwitch((10*x),(10* y),3)
                     elif btype == gblocks.VINE:
                         self.blocks[x][y] = gblocks.Vine((10*x),(10* y))
+                    elif btype == gblocks.CBJ:
+                        self.blocks[x][y] = gblocks.CB_J((10*x),(10* y))
+                    elif btype == gblocks.CBD:
+                        self.blocks[x][y] = gblocks.CB_D((10*x),(10* y))
                 elif sp[0] == 'manuals':
                     self.manualSwitches = int(sp[1])
                 elif sp[0] == 'gdir':
