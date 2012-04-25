@@ -42,8 +42,6 @@ class BlockImages():
 
         self.chaser = pygame.image.load('res/rock.png').convert()
 
-        self.vapor_cloud = pygame.image.load('res/rock.png').convert()
-
         self.icecube = pygame.image.load('res/icecube.png').convert()
 
         self.aswitch1 = pygame.image.load('res/switchaUp.png')
@@ -58,6 +56,11 @@ class BlockImages():
         self.qbox = pygame.image.load('res/qbox.png').convert()
         self.cbj = pygame.image.load('res/cbj.png')
         self.cbd = pygame.image.load('res/cbd.png')
+
+        self.vc = pygame.image.load('res/vc.png').convert()
+        self.colorkey = self.vc.get_at((0,0))
+        self.vc.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        
 class Block(object):
     def __init__(self):
         object.__init__(self)
@@ -227,7 +230,7 @@ class VaporCloud(Block):
             if g.control.f:
                 level.b2.state = gobjects.MODE_VAPOR
     def draw(self, screen, bimages):
-        screen.blit(bimages.vapor_cloud, self.rec)
+        screen.blit(bimages.vc, self.rec)
     def onCollide(self, ball):
         pass
 class IceCube(Block):
