@@ -54,7 +54,9 @@ class GameScreen(gui.Screen):
     def __init__(self, width, height, levelFile):
         #Pause background
         self.paused = False
-        self.pausebg = pygame.image.load('res/pausedimage.png').convert_alpha()
+        self.pausebg = pygame.image.load('res/pausedimage.png').convert()
+        self.colorkey = self.pausebg.get_at((0,0))
+        self.pausebg.set_colorkey(self.colorkey, pygame.RLEACCEL)
         self.pauseBRect = self.pausebg.get_rect()
         self.pause_fade = 50
         self.alpha = 0
@@ -70,7 +72,7 @@ class GameScreen(gui.Screen):
         self.restartButton.setClickedMethod(self.onClick)
         self.quitButton.setClickedMethod(self.onClick)
 
-        self.bgroup = gui.ButtonGroup((width/2)-50,500,50)
+        self.bgroup = gui.ButtonGroup((width/2),500,50)
         self.bgroup.add(self.resumeButton)
         self.bgroup.add(self.restartButton)
         self.bgroup.add(self.quitButton)
@@ -110,10 +112,10 @@ class GameScreen(gui.Screen):
                     self.bgroup.loc[1] = self.bgroup_open
                 self.bgroup.locChanged()
 
-            if self.alpha < 255:
+            if self.alpha < 200:
                 self.alpha += self.pause_fade
-                if self.alpha > 255:
-                    self.alpha = 255
+                if self.alpha > 200:
+                    self.alpha = 200
 
             #Update Pause menu
             self.bgroup.update(g,seconds)
