@@ -18,6 +18,8 @@ class Game:
 
                 self.size = self.width, self.height = 500, 500
 
+		leaves = pygame.image.load(os.path.join('res', 'icon.png'))
+		pygame.display.set_icon(leaves)
                 self.screen = pygame.display.set_mode(self.size,pygame.DOUBLEBUF, 32)
 
                 self.oldt = 0.0
@@ -45,11 +47,17 @@ class Game:
                 return gscreens.MenuScreen(self.width, self.height)
         def openGameScreen(self):
                 if (self.currentLevel < self.levelcount):
-                        self.str = 'Grow!' + self.levelFiles[self.currentLevel]
-                        pygame.display.set_caption(self.str)
-                        self.currentScreen = gscreens.GameScreen(self.width, self.height, self.levelFiles[self.currentLevel])
+                    s = re.match('(.*).gmap', self.levelFiles[self.currentLevel]).group(1)
+                    ss = s.split('_')[1:]
+                    s = "Grow! --"
+                    for word in ss:
+                        s += (" " + word)
+			
+			
+                    pygame.display.set_caption(s)
+                    self.currentScreen = gscreens.GameScreen(self.width, self.height, self.levelFiles[self.currentLevel])
                 else:
-                        self.currentScreen = gscreens.CreditsScreen(self.width, self.height)
+                    self.currentScreen = gscreens.CreditsScreen(self.width, self.height)
         def incrementLevel(self):
                 self.currentLevel = self.currentLevel +1
         def run(self):
