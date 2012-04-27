@@ -1,5 +1,5 @@
 #Author: Jonathan Haslow-Hall
-import gui, glevel, gcolors, pygame
+import gui, glevel, gcolors, pygame, re, os
 
 class MenuScreen(gui.Screen):
     def __init__(self, width, height):
@@ -78,7 +78,12 @@ class GameScreen(gui.Screen):
         self.respawnButton = gui.Button((width/2)-50,height*.4,'Retry',3)
 
         #Background
-        self.bg = pygame.image.load('res/bg.png').convert()
+        m = re.match('(.*)\.gmap', levelFile)
+        bg_image_file = os.path.join('.', 'levels', m.group(1) + '_bg.png')
+        if os.path.exists(bg_image_file):
+	    self.bg = pygame.image.load(bg_image_file.convert())
+        else:
+            self.bg = pygame.image.load('res/bg.png').convert()
         self.bgrect = self.bg.get_rect()
 
         #Completion Variables
