@@ -63,21 +63,6 @@ class Level:
         if self.dirtCount == self.grownCount:
             self.completed = True
                 
-    """def updateInput(self, g):
-        #Update gravity controls
-        if self.manualSwitches > 0:
-            if g.control.w and self.gstate != GSTATE_UP:
-                self.gstate = GSTATE_UP
-                self.manualSwitches -= 1
-            elif g.control.s and self.gstate != GSTATE_DOWN:
-                self.gstate = GSTATE_DOWN
-                self.manualSwitches -= 1
-            elif g.control.d and self.gstate != GSTATE_RIGHT:
-                self.gstate = GSTATE_RIGHT
-                self.manualSwitches -= 1
-            elif g.control.a and self.gstate != GSTATE_LEFT:
-                self.gstate = GSTATE_LEFT
-                self.manualSwitches -= 1"""
     def draw(self, screen):
         #Level draw layer
 	self.b2.draw(screen)

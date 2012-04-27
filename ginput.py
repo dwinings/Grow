@@ -22,10 +22,10 @@ class Controls:
         self.one = [False, False]
     def updateControls(self):
         bools = key.get_pressed()
-        self.up = bools[pygame.K_UP]
-        self.down = bools[pygame.K_DOWN]
-        self.left = bools[pygame.K_LEFT]
-        self.right = bools[pygame.K_RIGHT]
+        self.up = bools[pygame.K_UP] or bools[pygame.K_w]
+        self.down = bools[pygame.K_DOWN] or bools[pygame.K_s] 
+        self.left = bools[pygame.K_LEFT] or bools[pygame.K_a]
+        self.right = bools[pygame.K_RIGHT] or bools[pygame.K_d]
         self.w = bools[pygame.K_w]
         self.s = bools[pygame.K_s]
         self.a = bools[pygame.K_a]
