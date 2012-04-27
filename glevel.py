@@ -110,6 +110,14 @@ class Level:
                         self.blocks[x][y] = gblocks.Spikes((10*x),(10* y),2)
                     elif btype == gblocks.SPIKES_R:
                         self.blocks[x][y] = gblocks.Spikes((10*x),(10* y),3)
+                    elif btype == gblocks.SPIKES_BR:
+                        self.blocks[x][y] = gblocks.Spikes((10*x),(10* y),4)
+                    elif btype == gblocks.SPIKES_BL:
+                        self.blocks[x][y] = gblocks.Spikes((10*x),(10* y),5)
+                    elif btype == gblocks.SPIKES_TR:
+                        self.blocks[x][y] = gblocks.Spikes((10*x),(10* y),6
+                    elif btype == gblocks.SPIKES_TL:
+                        self.blocks[x][y] = gblocks.Spikes((10*x),(10* y),7)
                     elif btype == gblocks.SWITCH_U:
                         self.blocks[x][y] = gblocks.Switch((10*x),(10* y),0)
                     elif btype == gblocks.SWITCH_R:

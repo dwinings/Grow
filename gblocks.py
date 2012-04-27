@@ -22,6 +22,11 @@ VINE = 17
 CBJ = 18
 CBD = 19
 CBE = 20
+SPIKES_BR = 21
+SPIKES_BL = 22
+SPIKES_TR = 23
+SPIKES_TL = 24
+
 
 class BlockImages():
     def __init__(self):
@@ -33,6 +38,11 @@ class BlockImages():
         self.spike2 = pygame.image.load('res/spikesL.png')
         self.spike3 = pygame.image.load('res/spikesT.png')
         self.spike4 = pygame.image.load('res/spikesR.png')
+
+        self.spike5 = pygame.image.load('res/spikesBR.png')
+        self.spike6 = pygame.image.load('res/spikesBL.png')
+        self.spike7 = pygame.image.load('res/spikesTR.png')
+        self.spike8 = pygame.image.load('res/spikesRL.png')
 
         self.switch1 = pygame.image.load('res/switchUp.png')
         self.switch2 = pygame.image.load('res/switchRight.png')
@@ -118,8 +128,10 @@ class Spikes(Block):
             self.rec = pygame.Rect(0,0,2,10)
         elif stype == 2:
             self.rec = pygame.Rect(0,0,10,2)
-        else:
+        elif stype == 3:
             self.rec = pygame.Rect(8,0,2,10)
+        else:
+            self.rec = pygame.Rect(0,0,10,10)
 
         self.type = stype
         self.drec = pygame.Rect(0,0,10,10)
@@ -136,8 +148,16 @@ class Spikes(Block):
             screen.blit(bimages.spike2, self.drec)
         elif self.type == 2:
             screen.blit(bimages.spike3, self.drec)
-        else:
+        elif self.type == 3:
             screen.blit(bimages.spike4, self.drec)
+        elif self.type == 4:
+            screen.blit(bimages.spike5, self.drec)
+        elif self.type == 5:
+            screen.blit(bimages.spike6, self.drec)
+        elif self.type == 6:
+            screen.blit(bimages.spike7, self.drec)
+        else:
+            screen.blit(bimages.spike8, self.drec)
     def onCollide(self, ball):
         ball.alive = False
 class Switch(Block):
