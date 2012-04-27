@@ -21,6 +21,7 @@ SWITCH_A_L = 16
 VINE = 17
 CBJ = 18
 CBD = 19
+CBE = 20
 
 class BlockImages():
     def __init__(self):
@@ -56,6 +57,7 @@ class BlockImages():
         self.qbox = pygame.image.load('res/qbox.png').convert()
         self.cbj = pygame.image.load('res/cbj.png')
         self.cbd = pygame.image.load('res/cbd.png')
+        self.cbe = pygame.image.load('res/cbe.png')
 
         self.vc = pygame.image.load('res/vc.png').convert()
         self.colorkey = self.vc.get_at((0,0))
@@ -330,5 +332,77 @@ class CB_D(Block):
         screen.blit(bimages.qbox, self.rec)
         if self.hovered:
             screen.blit(bimages.cbd, self.loc)
+    def onCollide(self, ball):
+        pass
+class CB_D(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = self.rec.move(x,y)
+        self.hovered = False
+        self.loc = (x - 90, y - 50)
+    def update(self, level, g, seconds):
+        if self.rec.collidepoint(g.control.mloc):
+            self.hovered = True
+        else:
+            self.hovered = False
+    def draw(self, screen, bimages):
+        screen.blit(bimages.qbox, self.rec)
+        if self.hovered:
+            screen.blit(bimages.cbd, self.loc)
+    def onCollide(self, ball):
+        pass
+class CB_D(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = self.rec.move(x,y)
+        self.hovered = False
+        self.loc = (x - 90, y - 50)
+    def update(self, level, g, seconds):
+        if self.rec.collidepoint(g.control.mloc):
+            self.hovered = True
+        else:
+            self.hovered = False
+    def draw(self, screen, bimages):
+        screen.blit(bimages.qbox, self.rec)
+        if self.hovered:
+            screen.blit(bimages.cbd, self.loc)
+    def onCollide(self, ball):
+        pass
+class CB_D(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = self.rec.move(x,y)
+        self.hovered = False
+        self.loc = (x - 90, y - 50)
+    def update(self, level, g, seconds):
+        if self.rec.collidepoint(g.control.mloc):
+            self.hovered = True
+        else:
+            self.hovered = False
+    def draw(self, screen, bimages):
+        screen.blit(bimages.qbox, self.rec)
+        if self.hovered:
+            screen.blit(bimages.cbd, self.loc)
+    def onCollide(self, ball):
+        pass
+class CB_E(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = self.rec.move(x,y)
+        self.hovered = False
+        self.loc = (x - 90, y - 50)
+    def update(self, level, g, seconds):
+        if self.rec.collidepoint(g.control.mloc):
+            self.hovered = True
+        else:
+            self.hovered = False
+    def draw(self, screen, bimages):
+        screen.blit(bimages.qbox, self.rec)
+        if self.hovered:
+            screen.blit(bimages.cbe, self.loc)
     def onCollide(self, ball):
         pass
