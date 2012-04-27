@@ -67,10 +67,14 @@ class GameScreen(gui.Screen):
         self.restartButton.setClickedMethod(self.onClick)
         self.quitButton.setClickedMethod(self.onClick)
 
-        self.bgroup = gui.ButtonGroup((width/2)-50,(height*.28) + 50,50)
+        self.bgroup = gui.ButtonGroup((width/2)-50,0,50)
         self.bgroup.add(self.resumeButton)
         self.bgroup.add(self.restartButton)
         self.bgroup.add(self.quitButton)
+
+        self.bgroup_open = (height*.28) + 50
+        self.bgroup_closed = 500.0
+        self.bgroup_speed = 20.0
         
         #Gameover Variables
         self.gameoverI = pygame.image.load('res/gameover.png')
@@ -96,11 +100,24 @@ class GameScreen(gui.Screen):
             g.incrementLevel()
             g.openGameScreen()
         if self.paused:
+            #Move bgroup
+            if self.bgroup.loc[1] > self.bgroup_open:
+                self.bgroup.loc[1] = self.bgroup.loc[1] - self.bgroup_speed
+                if self.bgroup.loc[1] < self.bgroup_open:
+                    self.bgroup.loc[1] = self.bgroup_open
+                self.bgroup.locChanged()
+
             #Update Pause menu
             self.bgroup.update(g,seconds)
             if g.control.p[0] and not g.control.p[1]:
                 self.paused = not self.paused
         else:
+            if self.bgroup.loc[1] < self.bgroup_closed:
+                self.bgroup.loc[1] = self.bgroup.loc[1] + self.bgroup_speed
+                if self.bgroup.loc[1] > self.bgroup_closed:
+                    self.bgroup.loc[1] = self.bgroup_closed
+                self.bgroup.locChanged()
+                    
             #If player is no longer alive, prompt them to respawn
             if self.level.b2.alive == False:
                 self.respawnButton.update(g, seconds)
@@ -122,10 +139,10 @@ class GameScreen(gui.Screen):
 	self.level.draw(screen)
 	if self.paused:
             screen.blit(self.pauseBackground, self.pauseBRect)
-            self.bgroup.draw(screen)
         if self.level.b2.alive == False:
             screen.blit(self.gameoverI, self.gameoverRec)
             self.respawnButton.draw(screen)
+        self.bgroup.draw(screen)
     def restartLevel(self, width, height):
         self.level = glevel.Level(width, height, self.levelFile)
     def onClick(self, button, g):

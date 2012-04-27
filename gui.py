@@ -64,7 +64,7 @@ class Button:
         self.clickMethod = method
 class ButtonGroup:
     def __init__(self, locx, locy, spacingy):
-        self.loc = (locx, locy)
+        self.loc = [locx, locy]
         self.spacing_y = spacingy
         self.buttons = []
         self.selected_index = 0
@@ -92,6 +92,10 @@ class ButtonGroup:
     def add(self, button):
         self.buttons.append(button)
         self.buttons[len(self.buttons)-1].rec = self.buttons[len(self.buttons)-1].rec.move(self.loc[0], self.loc[1] + (self.spacing_y * (len(self.buttons)-1)))
+    def locChanged(self):
+        for i, button in enumerate(self.buttons):
+            button.rec.left = self.loc[0]
+            button.rec.top  = self.loc[1] + (self.spacing_y * i)
 class Screen:
     def __init__(self):
         pass
