@@ -48,8 +48,8 @@ class Level:
         
     def update(self, g, seconds):
         #Update controls
-        if not self.completed:
-            self.updateInput(g)
+        #if not self.completed:
+        #    self.updateInput(g)
         
         #Update player
         self.b2.update(self, g, self.levelRect.width, self.levelRect.height, seconds)
@@ -63,7 +63,7 @@ class Level:
         if self.dirtCount == self.grownCount:
             self.completed = True
                 
-    def updateInput(self, g):
+    """def updateInput(self, g):
         #Update gravity controls
         if self.manualSwitches > 0:
             if g.control.w and self.gstate != GSTATE_UP:
@@ -77,7 +77,7 @@ class Level:
                 self.manualSwitches -= 1
             elif g.control.a and self.gstate != GSTATE_LEFT:
                 self.gstate = GSTATE_LEFT
-                self.manualSwitches -= 1
+                self.manualSwitches -= 1"""
     def draw(self, screen):
         #Level draw layer
 	self.b2.draw(screen)
