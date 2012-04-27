@@ -52,9 +52,12 @@ class CreditsScreen(gui.Screen):
         self.quit.draw(screen)
 class GameScreen(gui.Screen):
     def __init__(self, width, height, levelFile):
+        #Pause background
         self.paused = False
-        self.pauseBackground = pygame.image.load('res/pausedimage.png')
-        self.pauseBRect = self.pauseBackground.get_rect()
+        self.pausebg = pygame.image.load('res/pausedimage.png').convert_alpha()
+        self.pauseBRect = self.pausebg.get_rect()
+        self.pause_fade = 50
+        self.alpha = 0
         
         self.levelFile = levelFile
 
@@ -107,6 +110,11 @@ class GameScreen(gui.Screen):
                     self.bgroup.loc[1] = self.bgroup_open
                 self.bgroup.locChanged()
 
+            if self.alpha < 255:
+                self.alpha += self.pause_fade
+                if self.alpha > 255:
+                    self.alpha = 255
+
             #Update Pause menu
             self.bgroup.update(g,seconds)
             if g.control.p[0] and not g.control.p[1]:
@@ -117,6 +125,11 @@ class GameScreen(gui.Screen):
                 if self.bgroup.loc[1] > self.bgroup_closed:
                     self.bgroup.loc[1] = self.bgroup_closed
                 self.bgroup.locChanged()
+
+            if self.alpha > 0:
+                self.alpha -= self.pause_fade
+                if self.alpha < 0:
+                    self.alpha = 0
                     
             #If player is no longer alive, prompt them to respawn
             if self.level.b2.alive == False:
@@ -137,11 +150,11 @@ class GameScreen(gui.Screen):
         screen.fill(gcolors.CORNFLOWER_BLUE)
         screen.blit(self.bg, self.bgrect)
 	self.level.draw(screen)
-	if self.paused:
-            screen.blit(self.pauseBackground, self.pauseBRect)
         if self.level.b2.alive == False:
             screen.blit(self.gameoverI, self.gameoverRec)
             self.respawnButton.draw(screen)
+        self.pausebg.set_alpha(self.alpha)
+        screen.blit(self.pausebg, self.pauseBRect)
         self.bgroup.draw(screen)
     def restartLevel(self, width, height):
         self.level = glevel.Level(width, height, self.levelFile)
