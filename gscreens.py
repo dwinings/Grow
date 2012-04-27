@@ -81,7 +81,7 @@ class GameScreen(gui.Screen):
         m = re.match('(.*)\.gmap', levelFile)
         bg_image_file = os.path.join('.', 'levels', m.group(1) + '_bg.png')
         if os.path.exists(bg_image_file):
-	    self.bg = pygame.image.load(bg_image_file.convert())
+            self.bg = pygame.image.load(bg_image_file.convert())
         else:
             self.bg = pygame.image.load('res/bg.png').convert()
         self.bgrect = self.bg.get_rect()
