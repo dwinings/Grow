@@ -5,7 +5,7 @@ class MenuScreen(gui.Screen):
     def __init__(self, width, height):
         self.playButton = gui.Button(0,0, 'Play',0)
         self.guideButton = gui.Button(0,0,'Guide',1)
-        self.guideBackButton = gui.Button(380,450,'Back',2);
+        self.guideBackButton = gui.Button(380,450,'Back',2)
         
         self.playButton.setClickedMethod(self.onClick)
         self.guideButton.setClickedMethod(self.onClick)
@@ -67,7 +67,7 @@ class GameScreen(gui.Screen):
         self.restartButton.setClickedMethod(self.onClick)
         self.quitButton.setClickedMethod(self.onClick)
 
-        self.bgroup = gui.ButtonGroup((width/2)-50,0,50)
+        self.bgroup = gui.ButtonGroup((width/2)-50,500,50)
         self.bgroup.add(self.resumeButton)
         self.bgroup.add(self.restartButton)
         self.bgroup.add(self.quitButton)
