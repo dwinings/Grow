@@ -42,7 +42,7 @@ class BlockImages():
         self.spike5 = pygame.image.load('res/spikesBR.png')
         self.spike6 = pygame.image.load('res/spikesBL.png')
         self.spike7 = pygame.image.load('res/spikesTR.png')
-        self.spike8 = pygame.image.load('res/spikesRL.png')
+        self.spike8 = pygame.image.load('res/spikesTL.png')
 
         self.switch1 = pygame.image.load('res/switchUp.png')
         self.switch2 = pygame.image.load('res/switchRight.png')
