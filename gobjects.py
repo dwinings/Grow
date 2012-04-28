@@ -101,6 +101,14 @@ class Ball:
                                         else:
                                             level.gstate = glevel.GSTATE_RIGHT
                                             self.gSwitched = True
+                                    elif level.gstate == glevel.GSTATE_LEFT:
+                                        if level.blocks[i][j].rec.centerx > self.rec.centerx:
+                                            level.gstate = glevel.GSTATE_RIGHT
+                                            self.gSwitched = True
+                                    elif level.gstate == glevel.GSTATE_RIGHT:
+                                        if level.blocks[i][j].rec.centerx < self.rec.centerx:
+                                            level.gstate = glevel.GSTATE_LEFT
+                                            self.gSwitched = True
                                 self.touchingBlock = True
                                 level.blocks[i][j].onCollide(self)
                             if self.newLocY.colliderect(level.blocks[i][j].rec):
@@ -108,12 +116,18 @@ class Ball:
                                     self.collpassy = False
                                     self.vel[1] = 0
                                     self.t[1] = 0.0
-                                    if level.gstate == glevel.GSTATE_LEFT or level.gstate == glevel.GSTATE_RIGHT:
-                                        if not self.gSwitched:
+                                    if not self.gSwitched:
+                                        if level.gstate == glevel.GSTATE_LEFT or level.gstate == glevel.GSTATE_RIGHT:
                                             if level.blocks[i][j].rec.centery < self.rec.centery:
                                                 level.gstate = glevel.GSTATE_UP
                                             else:
                                                 level.gstate = glevel.GSTATE_DOWN
+                                        elif level.gstate == glevel.GSTATE_UP:
+                                            if level.blocks[i][j].rec.centery > self.rec.centery:
+                                                level.gstate = glevel.GSTATE_DOWN
+                                        elif level.gstate == glevel.GSTATE_DOWN:
+                                            if level.blocks[i][j].rec.centery < self.rec.centery:
+                                                level.gstate = glevel.GSTATE_UP
                                 self.touchingBlock = True
                                 level.blocks[i][j].onCollide(self)
                 
