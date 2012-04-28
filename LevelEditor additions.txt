@@ -1,4 +1,0 @@
-You can now make a new map with the spikes put in it for you. 
-
-Hey, instead of making files like this, just make longer commit messages. It makes sense, if you think about it.
-~David
