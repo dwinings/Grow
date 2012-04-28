@@ -262,11 +262,36 @@ class IceCube(Block):
         self.rec = self.rec.move(x,y)
         self.collides = False
         self.stopsPMovement = False
+        self.state = 0
+        self.setUp = False
     def update(self, level, g, seconds):
+        if not self.setUp:
+            topRec = pygame.Rect(self.rec.left, self.rec.top - 10, 10, 10)
+            bottomRec = pygame.Rect(self.rec.left, self.rec.top + 10, 10, 10)
+            leftRec = pygame.Rect(self.rec.left - 10, self.rec.top, 10, 10)
+            rightRec = pygame.Rect(self.rec.left + 10, self.rec.top, 10, 10)
+            
+            for i in range(50):
+                for j in range(50):
+                    if level.blocks[i][j] != None and level.blocks[i][j].collides:
+                        if level.blocks[i][j].rec.colliderect(topRec):
+                            self.state = glevel.GSTATE_UP
+                            self.setUp = True
+                        elif level.blocks[i][j].rec.colliderect(bottomRec):
+                            self.state = glevel.GSTATE_DOWN
+                            self.setUp = True
+                        elif level.blocks[i][j].rec.colliderect(leftRec):
+                            self.state = glevel.GSTATE_LEFT
+                            self.setUp = True
+                        elif level.blocks[i][j].rec.colliderect(rightRec):
+                            self.state = glevel.GSTATE_RIGHT
+                            self.setUp = True
+
         if level.b2.state == gobjects.MODE_VAPOR and self.rec.colliderect(level.b2.rec) and not level.b2.touchingBlock:
             level.b2.hud.drawInteract = True
             if g.control.f:
                 level.b2.state = gobjects.MODE_NORMAL
+                level.gstate = self.state
     def draw(self, screen, bimages):
         screen.blit(bimages.icecube, self.rec)
     def onCollide(self, ball):
