@@ -150,6 +150,8 @@ class Level:
                         self.blocks[x][y] = gblocks.CB_D((10*x),(10* y))
                     elif btype == gblocks.CBE:
                         self.blocks[x][y] = gblocks.CB_E((10*x),(10* y))
+                    elif btype == gblocks.DARK_ROCK:
+                        self.blocks[x][y] = gblocks.DarkRock((10*x),(10* y))
                 elif sp[0] == 'manuals':
                     self.manualSwitches = int(sp[1])
                 elif sp[0] == 'gdir':

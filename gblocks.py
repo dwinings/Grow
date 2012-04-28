@@ -26,6 +26,7 @@ SPIKES_BR = 21
 SPIKES_BL = 22
 SPIKES_TR = 23
 SPIKES_TL = 24
+DARK_ROCK = 25
 
 
 class BlockImages():
@@ -50,6 +51,8 @@ class BlockImages():
         self.switch4 = pygame.image.load('res/switchLeft.png')
 
         self.rock = pygame.image.load('res/rock.png').convert()
+
+        self.dark_rock = pygame.image.load('res/dark_rock.png').convert()
 
         self.chaser = pygame.image.load('res/rock.png').convert()
 
@@ -449,5 +452,16 @@ class CB_E(Block):
         screen.blit(bimages.qbox, self.rec)
         if self.hovered:
             screen.blit(bimages.cbe, self.loc)
+    def onCollide(self, ball):
+        pass
+class DarkRock(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = self.rec.move(x, y)
+    def update(self, level, g, seconds):
+        pass
+    def draw(self, screen, bimages):
+        screen.blit(bimages.dark_rock, self.rec)
     def onCollide(self, ball):
         pass
