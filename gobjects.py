@@ -125,7 +125,11 @@ class Ball:
             #otherwise the player will move slowly on the vine
             if self.state == MODE_ON_VINE:
                 self.airT = 0.0
-            
+                self.vel[0] = 0
+                self.t[0] = 0.0
+                self.vel[1] = 0
+                self.t[1] = 0.0
+                
             if self.collpassx:
                 self.rec.left = self.newLocX.left
                 if level.gstate == glevel.GSTATE_LEFT or level.gstate == glevel.GSTATE_RIGHT:
