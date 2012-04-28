@@ -57,6 +57,7 @@ class GameScreen(gui.Screen):
         self.pausebg = pygame.image.load('res/pausedimage.png').convert()
         self.colorkey = self.pausebg.get_at((0,0))
         self.pausebg.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        
         self.pauseBRect = self.pausebg.get_rect()
         self.pause_fade = 50
         self.alpha = 0
@@ -82,9 +83,11 @@ class GameScreen(gui.Screen):
         self.bgroup_speed = 20.0
         
         #Gameover Variables
-        self.gameoverI = pygame.image.load('res/gameover.png')
+        self.gameoverI = pygame.image.load('res/gameover.png').convert()
+        self.colorkey = self.gameoverI.get_at((0,0))
+        self.gameoverI.set_colorkey(self.colorkey, pygame.RLEACCEL)
         self.gameoverRec = self.gameoverI.get_rect()
-        self.respawnButton = gui.Button((width/2)-50,height*.4,'Retry',3)
+        self.respawnButton = gui.Button((width/2)-50,height*.5,'Retry',3)
 
         #Background
         m = re.match('(.*)\.gmap', levelFile)
@@ -153,6 +156,7 @@ class GameScreen(gui.Screen):
         screen.blit(self.bg, self.bgrect)
 	self.level.draw(screen)
         if self.level.b2.alive == False:
+            self.gameoverI.set_alpha(200)
             screen.blit(self.gameoverI, self.gameoverRec)
             self.respawnButton.draw(screen)
         self.pausebg.set_alpha(self.alpha)

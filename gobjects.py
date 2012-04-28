@@ -202,14 +202,18 @@ class Ball:
             
     def updateVelocity(self,seconds):
         #Update speed based on directions from input
-        if not self.inAiry:
+        if self.state == MODE_NORMAL:
+            if not self.inAiry:
+                self.vel[0] = self.speed * self.direc[0] * seconds
+            else:
+                self.vel[0] = self.speedAir * self.direc[0] * seconds
+            if not self.inAirx:
+                self.vel[1] = self.speed * self.direc[1] * seconds
+            else:
+                self.vel[1] = self.speedAir * self.direc[1] * seconds
+        else:
             self.vel[0] = self.speed * self.direc[0] * seconds
-        else:
-            self.vel[0] = self.speedAir * self.direc[0] * seconds
-        if not self.inAirx:
             self.vel[1] = self.speed * self.direc[1] * seconds
-        else:
-            self.vel[1] = self.speedAir * self.direc[1] * seconds
     def updateGravity(self,level, seconds):
         if level.gstate == glevel.GSTATE_DOWN or level.gstate == glevel.GSTATE_UP:
             if level.gstate == glevel.GSTATE_DOWN:
