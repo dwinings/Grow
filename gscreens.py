@@ -87,7 +87,10 @@ class GameScreen(gui.Screen):
         self.colorkey = self.gameoverI.get_at((0,0))
         self.gameoverI.set_colorkey(self.colorkey, pygame.RLEACCEL)
         self.gameoverRec = self.gameoverI.get_rect()
-        self.respawnButton = gui.Button((width/2)-50,height*.5,'Retry',3)
+        self.respawnButton = gui.Button(0,0,'Retry',3)
+
+        self.bgroup2 = gui.ButtonGroup((width/2)-50,height*.5,70)
+        self.bgroup2.add(self.respawnButton)
 
         #Background
         m = re.match('(.*)\.gmap', levelFile)
@@ -138,7 +141,7 @@ class GameScreen(gui.Screen):
                     
             #If player is no longer alive, prompt them to respawn
             if self.level.b2.alive == False:
-                self.respawnButton.update(g, seconds)
+                self.bgroup2.update(g, seconds)
                 if self.respawnButton.isClicked():
                     g.openGameScreen()
             elif self.level.completed:
@@ -158,7 +161,7 @@ class GameScreen(gui.Screen):
         if self.level.b2.alive == False:
             self.gameoverI.set_alpha(200)
             screen.blit(self.gameoverI, self.gameoverRec)
-            self.respawnButton.draw(screen)
+            self.bgroup2.draw(screen)
         self.pausebg.set_alpha(self.alpha)
         screen.blit(self.pausebg, self.pauseBRect)
         self.bgroup.draw(screen)
