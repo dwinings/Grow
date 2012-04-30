@@ -520,11 +520,6 @@ block 46 35 25
 block 46 36 25
 block 46 37 25
 block 46 38 25
-block 46 39 23
-block 46 40 4
-block 46 41 4
-block 46 42 4
-block 46 43 21
 block 46 44 25
 block 46 45 25
 block 46 46 25
@@ -547,9 +542,8 @@ block 47 36 25
 block 47 37 25
 block 47 38 25
 block 47 39 25
-block 47 40 25
-block 47 41 25
-block 47 42 25
+block 47 40 3
+block 47 42 1
 block 47 43 25
 block 47 44 25
 block 47 45 25
@@ -575,9 +569,9 @@ block 48 36 25
 block 48 37 25
 block 48 38 25
 block 48 39 25
-block 48 40 25
-block 48 41 25
-block 48 42 25
+block 48 40 23
+block 48 41 4
+block 48 42 21
 block 48 43 25
 block 48 44 25
 block 48 45 25
