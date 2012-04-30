@@ -89,7 +89,7 @@ class GameScreen(gui.Screen):
         self.gameoverRec = self.gameoverI.get_rect()
         self.respawnButton = gui.Button(0,0,'Retry',3)
 
-        self.bgroup2 = gui.ButtonGroup((width/2)-50,height*.5,70)
+        self.bgroup2 = gui.ButtonGroup((width/2),height*.5,70)
         self.bgroup2.add(self.respawnButton)
 
         #Background
