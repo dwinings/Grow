@@ -65,10 +65,14 @@ class Level:
                 
     def draw(self, screen):
         #Level draw layer
+        for i in range(50):
+            for j in range(50):
+                if self.blocks[i][j] != None and not self.blocks[i][j].drawOnTop:
+                    self.blocks[i][j].draw(screen, self.bimages)
 	self.b2.draw(screen)
 	for i in range(50):
             for j in range(50):
-                if self.blocks[i][j] != None:
+                if self.blocks[i][j] != None and self.blocks[i][j].drawOnTop:
                     self.blocks[i][j].draw(screen, self.bimages)
 
         #Hud draw layer

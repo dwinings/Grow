@@ -81,6 +81,7 @@ class Block(object):
         object.__init__(self)
         self.collides = True
         self.stopsPMovement = True
+        self.drawOnTop = False
 class DirtGrass(Block):
     def __init__(self, x, y):
         Block.__init__(self)
@@ -172,6 +173,7 @@ class Switch(Block):
         self.collides = False
         self.stopsPMovement = False
         self.type = stype
+        self.drawOnTop = True
     def update(self, level, g, seconds):
         if self.rec.colliderect(level.b2.rec):
             level.b2.hud.drawInteract = True
@@ -308,6 +310,7 @@ class AutoSwitch(Block):
         self.collides = False
         self.stopsPMovement = False
         self.stype = stype
+        self.drawOnTop = True
     def update(self, level, g, seconds):
         if self.rec.colliderect(level.b2.rec):
             if self.stype == 0:
