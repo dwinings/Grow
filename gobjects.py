@@ -110,7 +110,8 @@ class Ball:
                                             level.gstate = glevel.GSTATE_LEFT
                                             self.gSwitched = True
                                 self.touchingBlock = True
-                                level.blocks[i][j].onCollide(self)
+                                #Be careful! Msg can be either a string or None.
+                                msg = level.blocks[i][j].onCollide(self)
                             if self.newLocY.colliderect(level.blocks[i][j].rec):
                                 if (self.state == MODE_NORMAL or self.state == MODE_ON_VINE) and level.blocks[i][j].stopsPMovement:
                                     self.collpassy = False
@@ -129,7 +130,8 @@ class Ball:
                                             if level.blocks[i][j].rec.centery < self.rec.centery:
                                                 level.gstate = glevel.GSTATE_UP
                                 self.touchingBlock = True
-                                level.blocks[i][j].onCollide(self)
+                                #Be careful! Msg can be either a string or None.
+                                msg = level.blocks[i][j].onCollide(self)
                 
             #if collision checks pass, set location to new locations respectively
             self.inAirx = False

@@ -164,6 +164,7 @@ class Spikes(Block):
             screen.blit(bimages.spike8, self.drec)
     def onCollide(self, ball):
         ball.alive = False
+        return 'You have plummeted to your demise!'
 class Switch(Block):
     def __init__(self, x, y, stype):
         Block.__init__(self)
@@ -227,6 +228,7 @@ class Chaser(Block):
         screen.blit(bimages.chaser, self.rec)
     def onCollide(self, ball):
         ball.alive = False
+        return 'You have been slain by a Chaser!'
     def setDirection(self, ball):
         sx = ball.rec.left - self.rec.left
         sy = ball.rec.top - self.rec.top

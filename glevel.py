@@ -34,7 +34,6 @@ class Level:
         #Growth variables
         self.dirtCount = 0
         self.grownCount = 0
-        self.pause_image = pygame.image.load('res/p_btn.png')
         self.leavesI = pygame.image.load('res/leaves.png')
         self.leavesLoc = [width - 70,height - 30]
         self.leavesTextOffset = [27,0]

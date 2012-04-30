@@ -87,9 +87,9 @@ class GameScreen(gui.Screen):
         self.colorkey = self.gameoverI.get_at((0,0))
         self.gameoverI.set_colorkey(self.colorkey, pygame.RLEACCEL)
         self.gameoverRec = self.gameoverI.get_rect()
-        self.respawnButton = gui.Button(0,0,'Retry',3)
+        self.respawnButton = gui.Button(0,0,'Why Not',3)
 
-        self.bgroup2 = gui.ButtonGroup((width/2),height*.5,70)
+        self.bgroup2 = gui.ButtonGroup((width/2)-10,height*.5,70)
         self.bgroup2.add(self.respawnButton)
 
         #Background
