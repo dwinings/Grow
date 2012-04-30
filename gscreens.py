@@ -157,8 +157,9 @@ class GameScreen(gui.Screen):
     def draw(self, screen):
         screen.fill(gcolors.CORNFLOWER_BLUE)
         screen.blit(self.bg, self.bgrect)
-	self.level.draw(screen)
+    	self.level.draw(screen)
         if self.level.b2.alive == False:
+            #Draw the death screen
             self.gameoverI.set_alpha(200)
             screen.blit(self.gameoverI, self.gameoverRec)
             self.bgroup2.draw(screen)

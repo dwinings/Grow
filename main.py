@@ -51,9 +51,7 @@ class Game:
                     ss = s.split('_')[1:]
                     s = "Grow! --"
                     for word in ss:
-                        s += (" " + word)
-			
-			
+                        s += (" " + word)		
                     pygame.display.set_caption(s)
                     self.currentScreen = gscreens.GameScreen(self.width, self.height, self.levelFiles[self.currentLevel])
                 else:
