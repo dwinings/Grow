@@ -167,6 +167,8 @@ class Spikes(Block):
 class Switch(Block):
     def __init__(self, x, y, stype):
         Block.__init__(self)
+        x -= 3
+        y -= 3
         self.type = stype
         self.rec = pygame.Rect(0,0,10,10)
         self.rec = self.rec.move(x, y)
@@ -304,6 +306,8 @@ class IceCube(Block):
 class AutoSwitch(Block):
     def __init__(self, x, y, stype):
         Block.__init__(self)
+        x -= 3
+        y -= 3
         self.type = stype
         self.rec = pygame.Rect(0,0,10,10)
         self.rec = self.rec.move(x, y)
