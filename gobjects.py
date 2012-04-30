@@ -277,6 +277,9 @@ class Hud:
         self.interactI = pygame.image.load('res/interact.png')
         self.interactLoc = (105, height - 50)
 
+        self.pauseI = pygame.image.load('res/pause_indicator.png')
+        self.pause_loc = (220, height - 50)
+
         self.manuals = 0
 
         self.drawInteract = False
@@ -315,4 +318,6 @@ class Hud:
 
         if self.drawInteract:
             screen.blit(self.interactI, self.interactLoc)
+
+        screen.blit(self.pauseI, self.pause_loc)
 
