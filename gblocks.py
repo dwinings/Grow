@@ -127,15 +127,15 @@ class Spikes(Block):
     def __init__(self, x, y, stype):
         Block.__init__(self)
         if stype == 0:
-            self.rec = pygame.Rect(0,8,10,2)
+            self.rec = pygame.Rect(2,8,6,2)
         elif stype == 1:
-            self.rec = pygame.Rect(0,0,2,10)
+            self.rec = pygame.Rect(0,2,2,6)
         elif stype == 2:
-            self.rec = pygame.Rect(0,0,10,2)
+            self.rec = pygame.Rect(2,0,6,2)
         elif stype == 3:
-            self.rec = pygame.Rect(8,0,2,10)
+            self.rec = pygame.Rect(8,2,2,6)
         else:
-            self.rec = pygame.Rect(0,0,10,10)
+            self.rec = pygame.Rect(3,3,5,5)
 
         self.type = stype
         self.drec = pygame.Rect(0,0,10,10)
