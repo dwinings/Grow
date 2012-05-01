@@ -14,14 +14,16 @@ class Audio:
     DEATH = 1
     
     def __init__(self):
-        mixer.init(frequency=44100, size=-16, channels=4, buffer=4096)
+        mixer.init(frequency=44100, size=-16, channels=4, buffer=128)
         self._background_s = Sound(os.path.join('res', 'background.ogg'))
-        self._background_s.set_volume(0.4)
+        self._background_s.set_volume(0.8)
         self._grav_fxs_s = [Sound(os.path.join('res', 'grav1.wav')), Sound(os.path.join('res', 'grav2.wav')), Sound(os.path.join('res','grav3.wav'))]
+        for s in self._grav_fxs_s:
+            s.set_volume(0.1)
         self._death_s = Sound(os.path.join('res', 'death.wav'))
         
-        self._background_channel = mixer.find_channel()
-        self._fx_channel = mixer.find_channel()
+        self._background_channel = mixer.Channel(0)
+        self._fx_channel = mixer.Channel(1)
         self.effect_playing = False
         self.bg_playing = False
         

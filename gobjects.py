@@ -122,18 +122,24 @@ class Ball:
                                         if level.gstate == glevel.GSTATE_LEFT or level.gstate == glevel.GSTATE_RIGHT:
                                             if level.blocks[i][j].rec.centery < self.rec.centery:
                                                 level.gstate = glevel.GSTATE_UP
+                                                self.gSwitched = True
                                             else:
                                                 level.gstate = glevel.GSTATE_DOWN
+                                                self.gSwitched = True
                                         elif level.gstate == glevel.GSTATE_UP:
                                             if level.blocks[i][j].rec.centery > self.rec.centery:
                                                 level.gstate = glevel.GSTATE_DOWN
+                                                self.gSwitched = True
                                         elif level.gstate == glevel.GSTATE_DOWN:
                                             if level.blocks[i][j].rec.centery < self.rec.centery:
                                                 level.gstate = glevel.GSTATE_UP
+                                                self.gSwitched = True
                                 self.touchingBlock = True
                                 #Be careful! Msg can be either a string or None.
                                 msg = level.blocks[i][j].onCollide(self,g)
                 
+            if self.gSwitched:
+                g.audio.fx(g.audio.GRAVITY)
             #if collision checks pass, set location to new locations respectively
             self.inAirx = False
             self.inAiry = False
