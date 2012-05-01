@@ -13,6 +13,7 @@ class Button:
     def __init__(self, x, y, da_text, button_id):
         self.hovered = False
         self.clicked = False
+	self.selected = False
         self.text = da_text
         self.rec = pygame.Rect(x, y, Button.button_width, Button.button_height)
         self.loc = (x,y)
@@ -28,6 +29,7 @@ class Button:
         self.clickMethod = None
         self.my_id = button_id
     def update(self, g, seconds):
+    	self.selected = False
         if self.rec.collidepoint(g.control.mloc):
             self.hovered = True
             if g.control.mClicked:
@@ -38,14 +40,14 @@ class Button:
         else:
             self.hovered = False
     def draw(self, screen):
-        if self.hovered:
+        if self.hovered or self.selected:
             screen.blit(Button.button_hover, self.rec)
         else:
             screen.blit(Button.button_normal, self.rec)
         
         screen.blit(self.text_s, self.srec)
     def draw2(self, screen, offset):
-        if self.hovered:
+        if self.hovered or self.selected:
             screen.blit(Button.button_hover, ((self.loc[0] + offset[0]),(self.loc[1] + offset[1])))
         else:
             screen.blit(Button.button_normal, ((self.loc[0] + offset[0]),(self.loc[1] + offset[1])))
@@ -85,6 +87,7 @@ class ButtonGroup:
                 
         for i in range(len(self.buttons)):
             self.buttons[i].update(g, seconds)
+	self.buttons[self.selected_index].selected = True
     def draw(self, screen):
         for i in range(len(self.buttons)):
             self.buttons[i].draw2(screen, (self.loc[0], self.loc[1] + (self.spacing_y * i)))
