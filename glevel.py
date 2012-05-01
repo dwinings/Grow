@@ -21,7 +21,8 @@ class Level:
         #Player Object
         self.b2 = gobjects.Ball(0, 0, width, height)
         self.gstate = GSTATE_DOWN
-        self.sgstate = 0
+        #self.sgstate = 0
+        self.block_gstate = GSTATE_DOWN
 
         #Player spawn point
         self.spawnx = 0
@@ -35,7 +36,7 @@ class Level:
         self.dirtCount = 0
         self.grownCount = 0
         self.leavesI = pygame.image.load('res/leaves.png')
-        self.leavesLoc = [width - 70,height - 30]
+        self.leavesLoc = [width - 80,height - 30]
         self.leavesTextOffset = [27,0]
 
         #Block images
