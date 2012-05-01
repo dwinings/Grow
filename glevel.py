@@ -153,6 +153,14 @@ class Level:
                         self.blocks[x][y] = gblocks.DarkRock((10*x),(10* y))
                     elif btype == gblocks.CRATE:
                         self.blocks[x][y] = gblocks.Crate((10*x),(10* y))
+                    elif btype == gblocks.SWITCH_B_U:
+                        self.blocks[x][y] = gblocks.BlockSwitch((10*x),(10* y),0)
+                    elif btype == gblocks.SWITCH_B_R:
+                        self.blocks[x][y] = gblocks.BlockSwitch((10*x),(10* y),1)
+                    elif btype == gblocks.SWITCH_B_D:
+                        self.blocks[x][y] = gblocks.BlockSwitch((10*x),(10* y),2)
+                    elif btype == gblocks.SWITCH_B_L:
+                        self.blocks[x][y] = gblocks.BlockSwitch((10*x),(10* y),3)
                 elif sp[0] == 'gdir':
                     self.gstate = int(sp[1])
                     self.sgstate = int(sp[1])

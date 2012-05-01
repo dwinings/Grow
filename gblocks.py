@@ -39,6 +39,11 @@ SPIKES_TL = 24
 DARK_ROCK = 25
 CRATE = 26
 
+#Block Gravity switches
+SWITCH_B_U = 27
+SWITCH_B_R = 28
+SWITCH_B_D = 29
+SWITCH_B_L = 30
 
 class BlockImages():
     def __init__(self):
@@ -99,6 +104,12 @@ class BlockImages():
         self.crate = pygame.image.load('res/crate.png').convert()
         self.colorkey = self.crate.get_at((0,0))
         self.crate.set_colorkey(self.colorkey, pygame.RLEACCEL)
+
+        #Block switches
+        self.bswitch1 = pygame.image.load('res/switchbUp.png')
+        self.bswitch2 = pygame.image.load('res/switchbRight.png')
+        self.bswitch3 = pygame.image.load('res/switchbDown.png')
+        self.bswitch4 = pygame.image.load('res/switchbLeft.png')
 class Block(object):
     def __init__(self):
         object.__init__(self)
@@ -202,7 +213,7 @@ class Switch(Block):
         x -= 3
         y -= 3
         self.type = stype
-        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = pygame.Rect(0,0,20,20)
         self.rec = self.rec.move(x, y)
         self.collides = False
         self.stopsPMovement = False
@@ -343,7 +354,7 @@ class AutoSwitch(Block):
         x -= 3
         y -= 3
         self.type = stype
-        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = pygame.Rect(0,0,20,20)
         self.rec = self.rec.move(x, y)
         self.collides = False
         self.stopsPMovement = False
@@ -564,5 +575,40 @@ class Crate(Block):
             self.rec.top = self.newLocY.top
     def draw(self, screen, bimages):
         screen.blit(bimages.crate, self.rec)
+    def onCollide(self, ball):
+        pass
+class BlockSwitch(Block):
+    def __init__(self, x, y, stype):
+        Block.__init__(self)
+        x -= 3
+        y -= 3
+        self.type = stype
+        self.rec = pygame.Rect(0,0,20,20)
+        self.rec = self.rec.move(x, y)
+        self.collides = False
+        self.stopsPMovement = False
+        self.type = stype
+        self.drawOnTop = True
+    def update(self, level, g, seconds):
+        if self.rec.colliderect(level.b2.rec):
+            level.b2.hud.drawInteract = True
+            if g.control.f:
+                if self.type == 0:
+                    level.block_gstate = GSTATE_UP
+                elif self.type == 1:
+                    level.block_gstate = GSTATE_RIGHT
+                elif self.type == 2:
+                    level.block_gstate = GSTATE_DOWN
+                else:
+                    level.block_gstate = GSTATE_LEFT
+    def draw(self, screen, bimages):
+        if self.type == 0:
+            screen.blit(bimages.bswitch1, self.rec)
+        elif self.type == 1:
+            screen.blit(bimages.bswitch2, self.rec)
+        elif self.type == 2:
+            screen.blit(bimages.bswitch3, self.rec)
+        else:
+            screen.blit(bimages.bswitch4, self.rec)
     def onCollide(self, ball):
         pass
