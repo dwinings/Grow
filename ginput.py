@@ -35,7 +35,7 @@ class Controls:
         m = mouse.get_pressed()
         self.mClicked = m[0]
         self.mloc = mouse.get_pos()
-        self.space = bools[pygame.K_SPACE]
+        self.space = bools[pygame.K_SPACE] or bools[pygame.K_RETURN]
         self.one[0] = bools[pygame.K_1]
     def updateLast(self):
         self.p[1] = self.p[0]
