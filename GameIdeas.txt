@@ -1,5 +1,3 @@
-Level titles 
-
 Blocks that are also affected by gravity 
  - Add a boolean to prevent blocks changing player gravity
 
@@ -26,15 +24,4 @@ Repulsor blocks
 
 Objects that can affect the world on time based 
 
- Fire that destroys grass
-Building on this, if fire kills grass, then the player can't grow on 100% of the tiles.  As such,
-what if we simply have a % completion for moving to the next level, and one (or more) exit tiles.
-On top of this system, we could have a rating system (1-3) stars.  Getting the minimum %, say, 65%, allows
-you to exit the level through an exit, but only earns you 1 star.  85% - 2 stars, 95%>, 3 stars.
-The player's score is saved, and the player can choose to play previous levels for a higher score.
-Could have aesthetic unlockables based on number of stars earned. (10 stars to buy angry-face Grow).
---This would be more for a platformer... this is a puzzle game. You either solve a puzzle or you don't. The only 
-real variable should be the time it took to solve the puzzle, but that idea has been done to death.
-
-In game shop?
--If we have spare development time, I think.
+Fire that destroys grass
