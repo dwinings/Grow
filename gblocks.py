@@ -1,6 +1,5 @@
 #Author: Jonathan Haslow-Hall
 import pygame, glevel, math, gmath, gobjects, random
-from glevel import *
 from random import randint
 
 DIRT_GRASS = 0
@@ -539,16 +538,16 @@ class Crate(Block):
         self.newLocY = self.rec.copy()
 
         #Apply gravity
-        if level.block_gstate == GSTATE_UP:
+        if level.block_gstate == glevel.GSTATE_UP:
             self.t[1] = self.t[1] - seconds
             self.newLocY.top = self.newLocY.top + (self.t[1] * glevel.G)
-        elif level.block_gstate == GSTATE_DOWN:
+        elif level.block_gstate == glevel.GSTATE_DOWN:
             self.t[1] = self.t[1] + seconds
             self.newLocY.top = self.newLocY.top + (self.t[1] * glevel.G)
-        elif level.block_gstate == GSTATE_LEFT:
+        elif level.block_gstate == glevel.GSTATE_LEFT:
             self.t[0] = self.t[0] - seconds
             self.newLocX.left = self.newLocX.left + (self.t[0] * glevel.G)
-        elif level.block_gstate == GSTATE_RIGHT:
+        elif level.block_gstate == glevel.GSTATE_RIGHT:
             self.t[0] = self.t[0] + seconds
             self.newLocX.left = self.newLocX.left + (self.t[0] * glevel.G)
 
@@ -594,13 +593,13 @@ class BlockSwitch(Block):
             level.b2.hud.drawInteract = True
             if g.control.f:
                 if self.type == 0:
-                    level.block_gstate = GSTATE_UP
+                    level.block_gstate = glevel.GSTATE_UP
                 elif self.type == 1:
-                    level.block_gstate = GSTATE_RIGHT
+                    level.block_gstate = glevel.GSTATE_RIGHT
                 elif self.type == 2:
-                    level.block_gstate = GSTATE_DOWN
+                    level.block_gstate = glevel.GSTATE_DOWN
                 else:
-                    level.block_gstate = GSTATE_LEFT
+                    level.block_gstate = glevel.GSTATE_LEFT
     def draw(self, screen, bimages):
         if self.type == 0:
             screen.blit(bimages.bswitch1, self.rec)
