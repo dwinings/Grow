@@ -16,7 +16,7 @@ class Audio:
     def __init__(self):
         mixer.init(frequency=44100, size=-16, channels=4, buffer=4096)
         self._background_s = Sound(os.path.join('res', 'background.ogg'))
-        self._background_s.set_volume('0.4')
+        self._background_s.set_volume(0.4)
         self._grav_fxs_s = [Sound(os.path.join('res', 'grav1.wav')), Sound(os.path.join('res', 'grav2.wav')), Sound(os.path.join('res','grav3.wav'))]
         self._death_s = Sound(os.path.join('res', 'death.wav'))
         

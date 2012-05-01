@@ -162,7 +162,7 @@ class DirtGrass(Block):
                 self.justGrown = False
     def draw(self, screen, bimages):
         screen.blit(bimages.GrassSheet, self.drec, self.srec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class Spikes(Block):
     def __init__(self, x, y, stype):
@@ -203,8 +203,8 @@ class Spikes(Block):
             screen.blit(bimages.spike7, self.drec)
         else:
             screen.blit(bimages.spike8, self.drec)
-    def onCollide(self, ball):
-        ball.alive = False
+    def onCollide(self, ball, g):
+        ball.kill(g)
         return 'You have plummeted to your demise!'
 class Switch(Block):
     def __init__(self, x, y, stype):
@@ -239,7 +239,7 @@ class Switch(Block):
             screen.blit(bimages.switch3, self.rec)
         else:
             screen.blit(bimages.switch4, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class Rock(Block):
     def __init__(self, x, y):
@@ -251,7 +251,7 @@ class Rock(Block):
         pass
     def draw(self, screen, bimages):
         screen.blit(bimages.rock, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class Chaser(Block):
     def __init__(self, x, y):
@@ -268,7 +268,7 @@ class Chaser(Block):
             self.rec.top = self.rec.top + (self.direc[1] * self.speed * seconds)
     def draw(self, screen, bimages):
         screen.blit(bimages.chaser, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         ball.alive = False
         return 'You have been slain by a Chaser!'
     def setDirection(self, ball):
@@ -304,7 +304,7 @@ class VaporCloud(Block):
                 level.b2.state = gobjects.MODE_VAPOR
     def draw(self, screen, bimages):
         screen.blit(bimages.vc, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class IceCube(Block):
     def __init__(self, x, y):
@@ -345,7 +345,7 @@ class IceCube(Block):
                 level.gstate = self.state
     def draw(self, screen, bimages):
         screen.blit(bimages.icecube, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class AutoSwitch(Block):
     def __init__(self, x, y, stype):
@@ -378,7 +378,7 @@ class AutoSwitch(Block):
             screen.blit(bimages.aswitch3, self.rec)
         else:
             screen.blit(bimages.aswitch4, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class Vine(Block):
     def __init__(self, x, y):
@@ -402,7 +402,7 @@ class Vine(Block):
             screen.blit(bimages.vine2, self.rec)
         elif self.type == 2:
             screen.blit(bimages.vine2, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class CB_J(Block):
     def __init__(self, x, y):
@@ -420,7 +420,7 @@ class CB_J(Block):
         screen.blit(bimages.qbox, self.rec)
         if self.hovered:
             screen.blit(bimages.cbj, self.loc)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class CB_D(Block):
     def __init__(self, x, y):
@@ -438,7 +438,7 @@ class CB_D(Block):
         screen.blit(bimages.qbox, self.rec)
         if self.hovered:
             screen.blit(bimages.cbd, self.loc)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class CB_D(Block):
     def __init__(self, x, y):
@@ -456,7 +456,7 @@ class CB_D(Block):
         screen.blit(bimages.qbox, self.rec)
         if self.hovered:
             screen.blit(bimages.cbd, self.loc)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class CB_D(Block):
     def __init__(self, x, y):
@@ -474,7 +474,7 @@ class CB_D(Block):
         screen.blit(bimages.qbox, self.rec)
         if self.hovered:
             screen.blit(bimages.cbd, self.loc)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class CB_D(Block):
     def __init__(self, x, y):
@@ -492,7 +492,7 @@ class CB_D(Block):
         screen.blit(bimages.qbox, self.rec)
         if self.hovered:
             screen.blit(bimages.cbd, self.loc)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class CB_E(Block):
     def __init__(self, x, y):
@@ -510,7 +510,7 @@ class CB_E(Block):
         screen.blit(bimages.qbox, self.rec)
         if self.hovered:
             screen.blit(bimages.cbe, self.loc)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class DarkRock(Block):
     def __init__(self, x, y):
@@ -522,7 +522,7 @@ class DarkRock(Block):
         pass
     def draw(self, screen, bimages):
         screen.blit(bimages.dark_rock, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class Crate(Block):
     def __init__(self, x, y):
@@ -574,7 +574,7 @@ class Crate(Block):
             self.rec.top = self.newLocY.top
     def draw(self, screen, bimages):
         screen.blit(bimages.crate, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass
 class BlockSwitch(Block):
     def __init__(self, x, y, stype):
@@ -609,5 +609,5 @@ class BlockSwitch(Block):
             screen.blit(bimages.bswitch3, self.rec)
         else:
             screen.blit(bimages.bswitch4, self.rec)
-    def onCollide(self, ball):
+    def onCollide(self, ball, g):
         pass

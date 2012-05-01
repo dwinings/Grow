@@ -112,7 +112,7 @@ class Ball:
                                                 self.gSwitched = True
                                 self.touchingBlock = True
                                 #Be careful! Msg can be either a string or None.
-                                msg = level.blocks[i][j].onCollide(self)
+                                msg = level.blocks[i][j].onCollide(self,g)
                             if self.newLocY.colliderect(level.blocks[i][j].rec):
                                 if (self.state == MODE_NORMAL or self.state == MODE_ON_VINE) and level.blocks[i][j].stopsPMovement:
                                     self.collpassy = False
@@ -132,7 +132,7 @@ class Ball:
                                                 level.gstate = glevel.GSTATE_UP
                                 self.touchingBlock = True
                                 #Be careful! Msg can be either a string or None.
-                                msg = level.blocks[i][j].onCollide(self)
+                                msg = level.blocks[i][j].onCollide(self,g)
                 
             #if collision checks pass, set location to new locations respectively
             self.inAirx = False
@@ -257,6 +257,9 @@ class Ball:
         self.score += value
         if self.score < 0:
             self.score = 0
+    def kill(self, g):
+        self.alive = False
+        g.audio.fx(fx=g.audio.DEATH)
             
 DRAW_LR = 0
 DRAW_UD = 1
