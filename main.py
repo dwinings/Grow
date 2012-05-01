@@ -2,14 +2,15 @@
 
 #Author: Jonathan Haslow-Hall
 
-import sys, os, re, pygame, glevel, gui, gscreens, ginput, time, gcolors, gblocks
+import sys, os, re, pygame, glevel, gui, gscreens, ginput, time, gcolors, gblocks, gaudio
 from pygame import font
 
 class Game:
         def __init__(self):
                 #Create Screen
-                pygame.init()
+                pygame.init()              
                 pygame.display.set_caption('Grow!')
+                self.audio = gaudio.Audio()
                 
                 #Create Controls for tracking
                 self.control = ginput.Controls()
@@ -18,8 +19,8 @@ class Game:
 
                 self.size = self.width, self.height = 500, 500
 
-		leaves = pygame.image.load(os.path.join('res', 'icon.png'))
-		pygame.display.set_icon(leaves)
+                leaves = pygame.image.load(os.path.join('res', 'icon.png'))
+                pygame.display.set_icon(leaves)
                 self.screen = pygame.display.set_mode(self.size,pygame.DOUBLEBUF, 32)
 
                 self.oldt = 0.0
@@ -44,6 +45,7 @@ class Game:
                 self.levelcount = len(self.levelFiles)
 
         def openMenuScreen(self):
+                self.audio.bg(self.audio.PAUSE)
                 return gscreens.MenuScreen(self.width, self.height)
         def openGameScreen(self):
                 if (self.currentLevel < self.levelcount):
@@ -53,6 +55,7 @@ class Game:
                     for word in ss:
                         s += (" " + word)		
                     pygame.display.set_caption(s)
+                    self.audio.bg(self.audio.PLAY)
                     self.currentScreen = gscreens.GameScreen(self.width, self.height, self.levelFiles[self.currentLevel])
                 else:
                     self.currentScreen = gscreens.CreditsScreen(self.width, self.height)
@@ -70,7 +73,7 @@ class Game:
                         #Update events
                         for event in pygame.event.get():
                                 if event.type == pygame.QUIT: sys.exit()
-
+                        
                         #Update Controls state if event was pressed
                         self.control.updateControls()
                         
