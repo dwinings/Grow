@@ -1,5 +1,6 @@
 spawn 100 400
 gdir 1
+bgdir 0
 block 0 0 25
 block 0 1 25
 block 0 2 25
@@ -85,9 +86,9 @@ block 2 9 25
 block 2 10 25
 block 2 11 25
 block 2 12 25
-block 2 13 0
-block 2 14 0
-block 2 15 0
+block 2 13 25
+block 2 14 25
+block 2 15 25
 block 2 45 1
 block 2 46 25
 block 2 47 25
@@ -106,7 +107,7 @@ block 3 9 25
 block 3 10 25
 block 3 11 25
 block 3 12 25
-block 3 13 0
+block 3 13 25
 block 3 45 1
 block 3 46 25
 block 3 47 25
@@ -115,19 +116,19 @@ block 3 49 25
 block 4 0 25
 block 4 1 25
 block 4 2 25
-block 4 3 0
-block 4 4 0
+block 4 3 25
+block 4 4 25
 block 4 5 0
 block 4 6 0
 block 4 7 0
 block 4 8 0
 block 4 9 0
 block 4 10 0
-block 4 11 0
-block 4 12 0
-block 4 13 0
+block 4 11 25
+block 4 12 25
+block 4 13 25
 block 4 14 7
-block 4 32 0
+block 4 32 25
 block 4 33 25
 block 4 34 23
 block 4 45 21
@@ -137,7 +138,7 @@ block 4 48 25
 block 4 49 25
 block 5 0 25
 block 5 1 24
-block 5 32 0
+block 5 32 25
 block 5 33 25
 block 5 34 25
 block 5 35 23
@@ -151,7 +152,7 @@ block 5 47 25
 block 5 48 25
 block 5 49 25
 block 6 0 24
-block 6 32 0
+block 6 32 25
 block 6 33 25
 block 6 34 25
 block 6 35 25
@@ -165,7 +166,7 @@ block 6 47 25
 block 6 48 25
 block 6 49 25
 block 7 0 3
-block 7 32 0
+block 7 32 25
 block 7 33 25
 block 7 34 25
 block 7 35 25
@@ -181,7 +182,7 @@ block 7 49 25
 block 8 0 3
 block 8 7 6
 block 8 31 5
-block 8 32 0
+block 8 32 25
 block 8 33 0
 block 8 34 0
 block 8 35 0
@@ -216,15 +217,12 @@ block 11 47 25
 block 11 48 25
 block 11 49 25
 block 12 0 3
-block 12 47 22
 block 12 48 25
 block 12 49 25
 block 13 0 3
-block 13 47 1
 block 13 48 25
 block 13 49 25
 block 14 0 3
-block 14 47 1
 block 14 48 25
 block 14 49 25
 block 15 0 3
