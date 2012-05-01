@@ -21,9 +21,10 @@ class Level:
         #Player Object
         self.b2 = gobjects.Ball(0, 0, width, height)
         self.gstate = GSTATE_DOWN
-        #self.sgstate = 0
+        self.sgstate = 0
         self.block_gstate = GSTATE_DOWN
-
+        self.sblock_gstate = 0
+        
         #Player spawn point
         self.spawnx = 0
         self.spawny = 0
@@ -81,6 +82,7 @@ class Level:
         self.b2.respawn(self.spawnx, self.spawny)
         self.b2.addScore(-15)
         self.gstate = self.sgstate
+        self.block_gstate = self.sblock_gstate
     def getLevelRec(self):
         return self.levelRect
     def parseLevelFile(self, levelFile):
@@ -164,3 +166,6 @@ class Level:
                 elif sp[0] == 'gdir':
                     self.gstate = int(sp[1])
                     self.sgstate = int(sp[1])
+                elif sp[0] == 'bgdir':
+                    self.block_gstate = int(sp[1])
+                    self.sblock_gstate = int(sp[1])
