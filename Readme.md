@@ -38,9 +38,9 @@ The code for this game is fairly straightforward. The major pieces of the code c
 
 ##Credits
 ###Jonathan Haslow-Hall
-- Original and Primary programmer
-- Feature designer and implementer
-- Asset contributor
+- Original and Primary Programmer
+- Feature Designer and Implementer
+- Asset Contributor
 
 ###David Winings
 - Mathematical Advisor
