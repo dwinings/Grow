@@ -151,6 +151,8 @@ class Level:
                         self.blocks[x][y] = gblocks.CB_E((10*x),(10* y))
                     elif btype == gblocks.DARK_ROCK:
                         self.blocks[x][y] = gblocks.DarkRock((10*x),(10* y))
+                    elif btype == gblocks.CRATE:
+                        self.blocks[x][y] = gblocks.Crate((10*x),(10* y))
                 elif sp[0] == 'gdir':
                     self.gstate = int(sp[1])
                     self.sgstate = int(sp[1])
