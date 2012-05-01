@@ -1,6 +1,7 @@
 #Author: Jonathan Haslow-Hall
-import pygame, glevel, math, gmath, gobjects
+import pygame, glevel, math, gmath, gobjects, random
 from glevel import *
+from random import randint
 
 DIRT_GRASS = 0
 SPIKES_B = 1
@@ -73,9 +74,18 @@ class BlockImages():
         self.aswitch3 = pygame.image.load('res/switchaDown.png')
         self.aswitch4 = pygame.image.load('res/switchaLeft.png')
 
-        self.vine = pygame.image.load('res/vine.png').convert()
-        self.colorkey = self.vine.get_at((0,0))
-        self.vine.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        #Vine images
+        self.vine1 = pygame.image.load('res/vine1.png').convert()
+        self.colorkey = self.vine1.get_at((0,0))
+        self.vine1.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        
+        self.vine2 = pygame.image.load('res/vine2.png').convert()
+        self.colorkey = self.vine1.get_at((0,0))
+        self.vine2.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        
+        self.vine3 = pygame.image.load('res/vine3.png').convert()
+        self.colorkey = self.vine3.get_at((0,0))
+        self.vine3.set_colorkey(self.colorkey, pygame.RLEACCEL)
 
         self.qbox = pygame.image.load('res/qbox.png').convert()
         self.cbj = pygame.image.load('res/cbj.png')
@@ -368,13 +378,20 @@ class Vine(Block):
         self.rec = self.rec.move(x,y)
         self.collides = False
         self.stopsPMovement = False
+
+        self.type = randint(0, 2)
     def update(self, level, g, seconds):
         if level.b2.state == gobjects.MODE_NORMAL and self.rec.colliderect(level.b2.rec):
             level.b2.hud.drawInteract = True
             if g.control.f:
                 level.b2.state = gobjects.MODE_ON_VINE
     def draw(self, screen, bimages):
-        screen.blit(bimages.vine, self.rec)
+        if self.type == 0:
+            screen.blit(bimages.vine1, self.rec)
+        elif self.type == 1:
+            screen.blit(bimages.vine2, self.rec)
+        elif self.type == 2:
+            screen.blit(bimages.vine2, self.rec)
     def onCollide(self, ball):
         pass
 class CB_J(Block):
