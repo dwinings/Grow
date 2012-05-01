@@ -1,32 +1,43 @@
 #Author: Jonathan Haslow-Hall
-import pygame, glevel, math, gmath, gobjects
+import pygame, glevel, math, gmath, gobjects, random
+from glevel import *
+from random import randint
 
 DIRT_GRASS = 0
 SPIKES_B = 1
 SPIKES_L = 2
 SPIKES_T = 3
 SPIKES_R = 4
+
+#Player Gravity switches
 SWITCH_U = 5
 SWITCH_R = 6
 SWITCH_D = 7
 SWITCH_L = 8
+
 ROCK = 9
 CHASER = 10
 VAPOR_CLOUD = 11
 ICE_CUBE = 12
+
+#Player Automatic Gravity switches
 SWITCH_A_U = 13
 SWITCH_A_R = 14
 SWITCH_A_D = 15
 SWITCH_A_L = 16
+
 VINE = 17
 CBJ = 18
 CBD = 19
 CBE = 20
+
+#Corner spikes
 SPIKES_BR = 21
 SPIKES_BL = 22
 SPIKES_TR = 23
 SPIKES_TL = 24
 DARK_ROCK = 25
+CRATE = 26
 
 
 class BlockImages():
@@ -63,9 +74,18 @@ class BlockImages():
         self.aswitch3 = pygame.image.load('res/switchaDown.png')
         self.aswitch4 = pygame.image.load('res/switchaLeft.png')
 
-        self.vine = pygame.image.load('res/vine.png').convert()
-        self.colorkey = self.vine.get_at((0,0))
-        self.vine.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        #Vine images
+        self.vine1 = pygame.image.load('res/vine1.png').convert()
+        self.colorkey = self.vine1.get_at((0,0))
+        self.vine1.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        
+        self.vine2 = pygame.image.load('res/vine2.png').convert()
+        self.colorkey = self.vine1.get_at((0,0))
+        self.vine2.set_colorkey(self.colorkey, pygame.RLEACCEL)
+        
+        self.vine3 = pygame.image.load('res/vine3.png').convert()
+        self.colorkey = self.vine3.get_at((0,0))
+        self.vine3.set_colorkey(self.colorkey, pygame.RLEACCEL)
 
         self.qbox = pygame.image.load('res/qbox.png').convert()
         self.cbj = pygame.image.load('res/cbj.png')
@@ -75,13 +95,23 @@ class BlockImages():
         self.vc = pygame.image.load('res/vc.png').convert()
         self.colorkey = self.vc.get_at((0,0))
         self.vc.set_colorkey(self.colorkey, pygame.RLEACCEL)
-        
+
+        self.crate = pygame.image.load('res/crate.png').convert()
+        self.colorkey = self.crate.get_at((0,0))
+        self.crate.set_colorkey(self.colorkey, pygame.RLEACCEL)
 class Block(object):
     def __init__(self):
         object.__init__(self)
         self.collides = True
         self.stopsPMovement = True
         self.drawOnTop = False
+        self.canChange_gstate = False
+    def __eq__(self, other):
+        return (isinstance(other, self.__class__)
+            and self.__dict__ == other.__dict__)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 class DirtGrass(Block):
     def __init__(self, x, y):
         Block.__init__(self)
@@ -102,7 +132,8 @@ class DirtGrass(Block):
         self.frames = 5
     
         self.grown = False
-        self.justGrown = False    
+        self.justGrown = False   
+        self.canChange_gstate = True
     def update(self, level, g, seconds):
         if self.grown == False and level.b2.state == gobjects.MODE_NORMAL and self.rec.colliderect(level.b2.growRec):
             level.b2.score += 5
@@ -204,7 +235,8 @@ class Rock(Block):
     def __init__(self, x, y):
         Block.__init__(self)
         self.rec = pygame.Rect(0,0,10,10)
-        self.rec = self.rec.move(x, y)
+        self.rec = self.rec.move(x, y)   
+        self.canChange_gstate = True
     def update(self, level, g, seconds):
         pass
     def draw(self, screen, bimages):
@@ -346,13 +378,20 @@ class Vine(Block):
         self.rec = self.rec.move(x,y)
         self.collides = False
         self.stopsPMovement = False
+
+        self.type = randint(0, 2)
     def update(self, level, g, seconds):
         if level.b2.state == gobjects.MODE_NORMAL and self.rec.colliderect(level.b2.rec):
             level.b2.hud.drawInteract = True
             if g.control.f:
                 level.b2.state = gobjects.MODE_ON_VINE
     def draw(self, screen, bimages):
-        screen.blit(bimages.vine, self.rec)
+        if self.type == 0:
+            screen.blit(bimages.vine1, self.rec)
+        elif self.type == 1:
+            screen.blit(bimages.vine2, self.rec)
+        elif self.type == 2:
+            screen.blit(bimages.vine2, self.rec)
     def onCollide(self, ball):
         pass
 class CB_J(Block):
@@ -467,10 +506,63 @@ class DarkRock(Block):
     def __init__(self, x, y):
         Block.__init__(self)
         self.rec = pygame.Rect(0,0,10,10)
-        self.rec = self.rec.move(x, y)
+        self.rec = self.rec.move(x, y)   
+        self.canChange_gstate = True
     def update(self, level, g, seconds):
         pass
     def draw(self, screen, bimages):
         screen.blit(bimages.dark_rock, self.rec)
+    def onCollide(self, ball):
+        pass
+class Crate(Block):
+    def __init__(self, x, y):
+        Block.__init__(self)
+        self.rec = pygame.Rect(0,0,10,10)
+        self.rec = self.rec.move(x,y)
+        self.t = [0.0, 0.0]
+    def update(self, level, g, seconds):
+        #Make 2 copies of the location rectangle.
+        #One copy is made for each axis because there
+        #might not allways be a collision on both.
+        self.newLocX = self.rec.copy()
+        self.newLocY = self.rec.copy()
+
+        #Apply gravity
+        if level.block_gstate == GSTATE_UP:
+            self.t[1] = self.t[1] - seconds
+            self.newLocY.top = self.newLocY.top + (self.t[1] * glevel.G)
+        elif level.block_gstate == GSTATE_DOWN:
+            self.t[1] = self.t[1] + seconds
+            self.newLocY.top = self.newLocY.top + (self.t[1] * glevel.G)
+        elif level.block_gstate == GSTATE_LEFT:
+            self.t[0] = self.t[0] - seconds
+            self.newLocX.left = self.newLocX.left + (self.t[0] * glevel.G)
+        elif level.block_gstate == GSTATE_RIGHT:
+            self.t[0] = self.t[0] + seconds
+            self.newLocX.left = self.newLocX.left + (self.t[0] * glevel.G)
+
+        #Booleans used for collision detection
+        self.collpassx = True
+        self.collpassy = True
+
+        for i in range(50):
+            for j in range(50):
+                if level.blocks[i][j] != None:
+                    if self != level.blocks[i][j]:
+                        if level.blocks[i][j].collides:
+                            if self.newLocX.colliderect(level.blocks[i][j].rec):
+                                    self.collpassx = False
+                                    self.t[0] = 0.0
+                            if self.newLocY.colliderect(level.blocks[i][j].rec):
+                                    self.collpassy = False
+                                    self.t[1] = 0.0
+
+        #If collision checks pass, set the location equal to the new location
+        if self.collpassx:
+            self.rec.left = self.newLocX.left
+        if self.collpassy:
+            self.rec.top = self.newLocY.top
+    def draw(self, screen, bimages):
+        screen.blit(bimages.crate, self.rec)
     def onCollide(self, ball):
         pass

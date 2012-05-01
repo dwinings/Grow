@@ -21,7 +21,8 @@ class Level:
         #Player Object
         self.b2 = gobjects.Ball(0, 0, width, height)
         self.gstate = GSTATE_DOWN
-        self.sgstate = 0
+        #self.sgstate = 0
+        self.block_gstate = GSTATE_DOWN
 
         #Player spawn point
         self.spawnx = 0
@@ -29,13 +30,11 @@ class Level:
 
         self.completed = False
 
-        self.manualSwitches = 0
-
         #Growth variables
         self.dirtCount = 0
         self.grownCount = 0
         self.leavesI = pygame.image.load('res/leaves.png')
-        self.leavesLoc = [width - 70,height - 30]
+        self.leavesLoc = [width - 80,height - 30]
         self.leavesTextOffset = [27,0]
 
         #Block images
@@ -47,10 +46,6 @@ class Level:
         self.parseLevelFile(levelfile)
         
     def update(self, g, seconds):
-        #Update controls
-        #if not self.completed:
-        #    self.updateInput(g)
-        
         #Update player
         self.b2.update(self, g, self.levelRect.width, self.levelRect.height, seconds)
 
@@ -156,8 +151,8 @@ class Level:
                         self.blocks[x][y] = gblocks.CB_E((10*x),(10* y))
                     elif btype == gblocks.DARK_ROCK:
                         self.blocks[x][y] = gblocks.DarkRock((10*x),(10* y))
-                elif sp[0] == 'manuals':
-                    self.manualSwitches = int(sp[1])
+                    elif btype == gblocks.CRATE:
+                        self.blocks[x][y] = gblocks.Crate((10*x),(10* y))
                 elif sp[0] == 'gdir':
                     self.gstate = int(sp[1])
                     self.sgstate = int(sp[1])

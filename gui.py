@@ -70,7 +70,6 @@ class ButtonGroup:
         self.spacing_y = spacingy
         self.buttons = []
         self.selected_index = 0
-        self.selector = pygame.image.load('res/selector.png')
         
     def update(self, g, seconds):
         if g.control.space:
@@ -91,7 +90,6 @@ class ButtonGroup:
     def draw(self, screen):
         for i in range(len(self.buttons)):
             self.buttons[i].draw2(screen, (self.loc[0], self.loc[1] + (self.spacing_y * i)))
-        screen.blit(self.selector, (self.loc[0] - 60, self.loc[1] + (self.spacing_y * self.selected_index)))
     def add(self, button):
         self.buttons.append(button)
         self.buttons[len(self.buttons)-1].rec = self.buttons[len(self.buttons)-1].rec.move(self.loc[0], self.loc[1] + (self.spacing_y * (len(self.buttons)-1)))

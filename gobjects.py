@@ -94,21 +94,22 @@ class Ball:
                                     self.collpassx = False
                                     self.vel[0] = 0
                                     self.t[0] = 0.0
-                                    if level.gstate == glevel.GSTATE_UP or level.gstate == glevel.GSTATE_DOWN:
-                                        if level.blocks[i][j].rec.centerx < self.rec.centerx:
-                                            level.gstate = glevel.GSTATE_LEFT
-                                            self.gSwitched = True
-                                        else:
-                                            level.gstate = glevel.GSTATE_RIGHT
-                                            self.gSwitched = True
-                                    elif level.gstate == glevel.GSTATE_LEFT:
-                                        if level.blocks[i][j].rec.centerx > self.rec.centerx:
-                                            level.gstate = glevel.GSTATE_RIGHT
-                                            self.gSwitched = True
-                                    elif level.gstate == glevel.GSTATE_RIGHT:
-                                        if level.blocks[i][j].rec.centerx < self.rec.centerx:
-                                            level.gstate = glevel.GSTATE_LEFT
-                                            self.gSwitched = True
+                                    if level.blocks[i][j].canChange_gstate:
+                                        if level.gstate == glevel.GSTATE_UP or level.gstate == glevel.GSTATE_DOWN:
+                                            if level.blocks[i][j].rec.centerx < self.rec.centerx:
+                                                level.gstate = glevel.GSTATE_LEFT
+                                                self.gSwitched = True
+                                            else:
+                                                level.gstate = glevel.GSTATE_RIGHT
+                                                self.gSwitched = True
+                                        elif level.gstate == glevel.GSTATE_LEFT:
+                                            if level.blocks[i][j].rec.centerx > self.rec.centerx:
+                                                level.gstate = glevel.GSTATE_RIGHT
+                                                self.gSwitched = True
+                                        elif level.gstate == glevel.GSTATE_RIGHT:
+                                            if level.blocks[i][j].rec.centerx < self.rec.centerx:
+                                                level.gstate = glevel.GSTATE_LEFT
+                                                self.gSwitched = True
                                 self.touchingBlock = True
                                 #Be careful! Msg can be either a string or None.
                                 msg = level.blocks[i][j].onCollide(self)
@@ -117,7 +118,7 @@ class Ball:
                                     self.collpassy = False
                                     self.vel[1] = 0
                                     self.t[1] = 0.0
-                                    if not self.gSwitched:
+                                    if level.blocks[i][j].canChange_gstate and not self.gSwitched:
                                         if level.gstate == glevel.GSTATE_LEFT or level.gstate == glevel.GSTATE_RIGHT:
                                             if level.blocks[i][j].rec.centery < self.rec.centery:
                                                 level.gstate = glevel.GSTATE_UP
@@ -282,8 +283,6 @@ class Hud:
         self.pauseI = pygame.image.load('res/pause_indicator.png')
         self.pause_loc = (220, height - 50)
 
-        self.manuals = 0
-
         self.drawInteract = False
                                          
     def update(self, ball,level):
@@ -297,16 +296,7 @@ class Hud:
                 self.drawType = DRAW_UD
         else:
             self.drawType = DRAW_BOTH
-        self.manuals = level.manualSwitches
     def draw(self, screen):
-        """self.textI = basicFont.render('Score: ' + str(self.score),True, gcolors.WHITE)
-        self.textR = self.textI.get_rect()
-        screen.blit(self.textI, self.textR)
-
-        self.textI = basicFont.render('Manuals Remaining: '+ str(self.manuals),True, gcolors.WHITE)
-        screen.blit(self.textI, (250,0))"""
-
-
         self.updownI.set_alpha(200)
         self.leftrightI.set_alpha(200)
         
