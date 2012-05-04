@@ -49,6 +49,11 @@ The code for this game is fairly straightforward. The major pieces of the code c
 - Git Sensei
 - Auxiliary Programmer
 
+###Eugene Raether
+- Contributed Sprite Artwork
+- Created Texture Tool
+- Level Designer
+
 ###Lucy Niedbala
 - External Art Contractor
 
