@@ -3,8 +3,6 @@ from pygame.mixer import Sound
 from random import choice
 import os
 
-
-
 class Audio:
 
     PLAY  = 0
